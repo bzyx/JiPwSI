@@ -16,7 +16,7 @@ public final class Helpers {
 	 * Gets list of strings with menu options and retuns the proper value typed
 	 * by user.
 	 * 
-	 * @since 21/10/2011
+	 * @since 1.0.0 21/10/2011
 	 * @param menuItems
 	 *            Get list of string with formated menu items
 	 * @return i-th number of selected option
