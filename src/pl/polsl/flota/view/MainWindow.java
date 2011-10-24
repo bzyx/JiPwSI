@@ -30,7 +30,8 @@ public final class MainWindow {
 		menuAdminMain.add("	3) Edytuj pojazd.");
 		menuAdminMain.add("	4) Usuń pojazd.");
 		menuAdminMain.add("	5) Kierowca.");
-		menuAdminMain.add("	6) Wyjście z programu.");
+		menuAdminMain.add("	6) Wyloguj.");
+		menuAdminMain.add("	7) Wyjście z programu.");
 
 		menuAdminDriver.add(" 1) Dodaj kierowcę.");
 		menuAdminDriver.add(" 2) Przeglądaj kierowcę.");
@@ -92,10 +93,13 @@ public final class MainWindow {
 			break;
 		}
 		case 6: {
+			// Wyloguj do okna głównego
+		}
+		case 7: {
 			// Wyjście z programu
 		}
 		}
-		//System.out.println("Menu admin option: " + retVal);
+		// System.out.println("Menu admin option: " + retVal);
 	}
 
 	/**
@@ -129,7 +133,28 @@ public final class MainWindow {
 			break;
 		}
 		}
-		//System.out.println("Menu admin for driver option: " + retVal);
+		// System.out.println("Menu admin for driver option: " + retVal);
 	}
 
+	/**
+	 * @param mywindow
+	 * @since 1.0.0 24/10/2011 This function generates and handles Driver menu
+	 */
+	private static void mainMenuDriver(MainWindow mywindow) {
+		Integer retVal = Helpers.menuToOptionId(mywindow.menuAdminDriver);
+		switch (retVal) {
+		case 1: {
+			// Zanotuj tankowanie
+			break;
+		}
+		case 2: {
+			// Zmień pojazd
+			break;
+		}
+		case 3: {
+			// Wyloguj
+			break;
+		}
+		}
+	}
 }
