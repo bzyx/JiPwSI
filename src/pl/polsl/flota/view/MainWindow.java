@@ -6,6 +6,9 @@ package pl.polsl.flota.view;
 import java.util.ArrayList;
 import java.util.List;
 import pl.polsl.flota.helpers.*;
+import pl.polsl.flota.model.Car;
+import pl.polsl.flota.model.CarList;
+import pl.polsl.flota.model.Refuel;
 
 /**
  * @author Marcin Jabrzyk
@@ -33,6 +36,7 @@ public final class MainWindow {
 		menuAdminMain.add("	6) Wyloguj.");
 		menuAdminMain.add("	7) Wyjście z programu.");
 
+		// This is menu for admin - "kierowca"
 		menuAdminDriver.add(" 1) Dodaj kierowcę.");
 		menuAdminDriver.add(" 2) Przeglądaj kierowcę.");
 		menuAdminDriver.add(" 3) Edytuj kierowcę.");
@@ -55,15 +59,30 @@ public final class MainWindow {
 		MainWindow mywindow = new MainWindow();
 
 		System.out.println("Witaj w programie Flota.");
-		// TODO Auto-generated method stub
+		CarList carList = new CarList();
+		carList.addItem(new Car("SR12000", "Toyota Corolla", 100000,
+				(float) 5.2));
+		carList.addItem(new Car("SR12001", "Toyota Avensis", 200000,
+				(float) 7.2));
+		Car my_car = carList.getItem(null);
+		java.util.Date date = new java.util.Date();
+		my_car.addRefuel(new Refuel(100001, (float) 100.2, (float) 57.24, date));
+		my_car.addRefuel(new Refuel(100002, (float) 102.2, (float) 52.24, date));
+		carList.save("test.txt");
+
+		CarList carList2 = new CarList();
+		carList2.load("test.txt");
+		carList.save("test2.txt");
+
 		Helpers.clearScren();
 		mainMenuAdmin(mywindow);
 	}
 
 	/**
+	 * This function generates and handles the main menu for application admin.
+	 * 
 	 * @param mywindow
-	 * @since 1.0.0 24/10/2011 This function generates and handles the main menu
-	 *        for application admin.
+	 * @since 1.0.0 24/10/2011
 	 */
 	private static void mainMenuAdmin(MainWindow mywindow) {
 		Integer retVal = Helpers.menuToOptionId(mywindow.menuAdminMain);
@@ -103,9 +122,10 @@ public final class MainWindow {
 	}
 
 	/**
+	 * This function generates and handles Driver section in admin menu
+	 * 
 	 * @param mywindow
-	 * @since 1.0.0 24/10/2011 This function generates and handles Driver
-	 *        section in admin menu
+	 * @since 1.0.0 24/10/2011
 	 */
 	private static void mainMenuAdminDriver(MainWindow mywindow) {
 		Integer retVal = Helpers.menuToOptionId(mywindow.menuAdminDriver);
@@ -137,8 +157,10 @@ public final class MainWindow {
 	}
 
 	/**
+	 * This function generates and handles Driver menu
+	 * 
 	 * @param mywindow
-	 * @since 1.0.0 24/10/2011 This function generates and handles Driver menu
+	 * @since 1.0.0 24/10/2011
 	 */
 	private static void mainMenuDriver(MainWindow mywindow) {
 		Integer retVal = Helpers.menuToOptionId(mywindow.menuAdminDriver);

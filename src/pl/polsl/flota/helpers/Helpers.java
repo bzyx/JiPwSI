@@ -9,11 +9,12 @@ import java.util.Scanner;
 /**
  * @author Marcin Jabrzyk
  * 
+ * Class with common functions which should not be in M,V or C.
  */
 public final class Helpers {
 
 	/**
-	 * Gets list of strings with menu options and retuns the proper value typed
+	 * Gets list of strings with menu options and returns the proper value typed
 	 * by user.
 	 * 
 	 * @since 1.0.0 21/10/2011
@@ -55,8 +56,9 @@ public final class Helpers {
 	}
 	
 	/**
-	 * @since 1.0.0 24/10/2011
 	 * Clears the screen and make a delimiter from the previous menu.
+	 * 
+	 * @since 1.0.0 24/10/2011
 	 */
 	public static void clearScren(){
 		System.out.printf("\033[H\033[2J");
