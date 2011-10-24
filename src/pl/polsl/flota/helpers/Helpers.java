@@ -25,7 +25,6 @@ public final class Helpers {
 		Integer howManyItems = menuItems.size();
 		Integer returnValue = -1;
 		Boolean error = true;
-		System.out.println(howManyItems);
 		for (String menuItem : menuItems) {
 			System.out.println(menuItem);
 		}
@@ -37,7 +36,6 @@ public final class Helpers {
 			try {
 				System.out.print("Podaj wybór? ");
 				String userTypedIn = scanner.nextLine();
-				System.out.println("");
 				returnValue = Integer.parseInt(userTypedIn, 10);
 				error = false;
 			} catch (NumberFormatException e) {
@@ -54,6 +52,16 @@ public final class Helpers {
 
 		return returnValue;
 
+	}
+	
+	/**
+	 * @since 1.0.0 24/10/2011
+	 * Clears the screen and make a delimiter from the previous menu.
+	 */
+	public static void clearScren(){
+		System.out.printf("\033[H\033[2J");
+		System.out.println("--------------------------------------------------------------------------------");
+		System.out.println("");
 	}
 
 }
