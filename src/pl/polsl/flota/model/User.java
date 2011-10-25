@@ -4,25 +4,35 @@
 package pl.polsl.flota.model;
 
 /**
+ * A class which handles User object.
+ * 
  * @author Marcin Jabrzyk
  * @since 1.0.2 25/10/2011
- *
+ * 
  */
 public class User {
+	/**
+	 * A varible to get the next userId
+	 */
 	static Integer lastUserId = 0;
+
 	/**
 	 * @return the lastUserId
 	 */
 	public static Integer getLastUserId() {
 		return lastUserId;
 	}
-	
+
 	/**
-	 * @param lastUserId the lastUserId to set
+	 * Sets the lastUserId after eg. reading form a file
+	 * 
+	 * @param lastUserId
+	 *            the lastUserId to set
 	 */
 	public static void setLastUserId(Integer lastUserId) {
 		User.lastUserId = lastUserId;
 	}
+
 	String fullName;
 	Boolean isAdmin;
 	String password;
@@ -31,7 +41,10 @@ public class User {
 	{
 		lastUserId++;
 	}
+
 	/**
+	 * A constructor with all needed parms. Default user is not a admin.
+	 * 
 	 * @param username
 	 * @param password
 	 * @param fullName
@@ -44,75 +57,89 @@ public class User {
 		this.fullName = fullName;
 		this.isAdmin = false;
 	}
-	
+
+	/**
+	 * A defalut constructor
+	 */
 	public User() {
 		super();
 		this.userId = lastUserId;
 		this.isAdmin = false;
 	}
+
 	/**
 	 * @return the fullName
 	 */
 	public String getFullName() {
 		return fullName;
 	}
+
 	/**
 	 * @return the isAdmin
 	 */
 	public Boolean getIsAdmin() {
 		return isAdmin;
 	}
+
 	/**
 	 * @return the password
 	 */
 	public String getPassword() {
 		return password;
 	}
+
 	/**
 	 * @return the userId
 	 */
 	public Integer getUserId() {
 		return userId;
 	}
+
 	/**
 	 * @return the username
 	 */
 	public String getUserName() {
 		return userName;
 	}
+
 	/**
-	 * @param fullName the fullName to set
+	 * @param fullName
+	 *            the fullName to set
 	 */
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
+
 	/**
-	 * @param isAdmin the isAdmin to set
+	 * @param isAdmin
+	 *            the isAdmin to set
 	 */
 	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+
 	/**
-	 * @param password the password to set
+	 * @param password
+	 *            the password to set
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	/**
-	 * @param userId the userId to set
+	 * @param userId
+	 *            the userId to set
 	 */
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	
+
 	/**
-	 * @param username the username to set
+	 * @param userName
+	 *            the userName to set
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
-	
-	
 
 }

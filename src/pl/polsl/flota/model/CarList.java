@@ -19,12 +19,14 @@ import flexjson.JSONException;
 import flexjson.JSONSerializer;
 
 /**
+ * This class handles a list of car.
+ * 
  * @author Marcin Jabrzyk
  * @since 1.0.1
  */
 public class CarList {
 	/**
-	 * 
+	 * A inside object wihch is the list of cars.
 	 */
 	List<Car> listOfCars;
 
@@ -40,8 +42,14 @@ public class CarList {
 	}
 
 	/**
+	 * Tries to add a new car to list. Throws ElementAlredyExists exception when
+	 * the car already exist or the registration number is the same as an other
+	 * car in the list.
+	 * 
 	 * @since 1.0.1 24/10/2011
 	 * @param car
+	 *            a Car object to add
+	 * @throws ElementAlredyExists
 	 */
 	public void addItem(Car car) throws ElementAlredyExists {
 		for (Car car_ : this.listOfCars) {
@@ -55,6 +63,8 @@ public class CarList {
 	}
 
 	/**
+	 * Removes a item from list.
+	 * 
 	 * @since 1.0.1 24/10/2011
 	 * @param car
 	 */
@@ -63,18 +73,14 @@ public class CarList {
 	}
 
 	/**
-	 * @since 1.0.1 24/10/2011
-	 * @return
-	 */
-	public List<Car> getListOfCars() {
-		return listOfCars;
-	}
-
-	/**
+	 * Tries to get a car by Object if not found throws ElementNotFound
+	 * 
 	 * @since 1.0.1 24/10/2011
 	 * @param car
-	 * @return
+	 * @return a Car object
+	 * @throws ElementNotFound
 	 */
+	// TODO: Propably to remove
 	public Car getCar(Car car) throws ElementNotFound {
 		for (Car car_ : this.listOfCars) {
 			if (car_.equals(car)) {
@@ -85,24 +91,14 @@ public class CarList {
 	}
 
 	/**
+	 * Tries to find cars which have in the name a name parm. If don't found
+	 * anything throws ElementNotFound
+	 * 
 	 * @since 1.0.1 24/10/2011
-	 * @param car
-	 * @return
-	 */
-	public Car getCarByRegNumber(String regNumber) throws ElementNotFound {
-		for (Car car : this.listOfCars) {
-			if ( car.getRegNumber().contentEquals(regNumber) ) {
-				return car;
-			}
-		}
-		throw new ElementNotFound("Car: getCarByRegNumber " + regNumber
-				+ " - element not found");
-	}
-
-	/**
-	 * @since 1.0.1 24/10/2011
-	 * @param car
-	 * @return
+	 * @param name
+	 *            to find
+	 * @return A list of cars
+	 * @throws ElementNotFound
 	 */
 	public List<Car> getCarByName(String name) throws ElementNotFound {
 		List<Car> result = new ArrayList<Car>();
@@ -120,22 +116,33 @@ public class CarList {
 	}
 
 	/**
+	 * Tries to find a car by it's registration number. If not found throws
+	 * ElementNotFound
+	 * 
 	 * @since 1.0.1 24/10/2011
-	 * @param car
+	 * @param regNumber
+	 *            a registration number to find
+	 * @return a Car Object
+	 * @throws ElementNotFound
 	 */
-	public void updateItemByRegNumber(String regNumber, Car car)
-			throws ElementNotFound {
-		Boolean isError = true;
-		for (Car car_ : this.listOfCars) {
-			if (car_.getRegNumber().contentEquals(car.getRegNumber())) {
-				car_ = car;
-				isError = false;
+	public Car getCarByRegNumber(String regNumber) throws ElementNotFound {
+		for (Car car : this.listOfCars) {
+			if (car.getRegNumber().contentEquals(regNumber)) {
+				return car;
 			}
 		}
-		if (isError) {
-			throw new ElementNotFound("Car: updateItemByRegNumber " + regNumber
-					+ " - element not found");
-		}
+		throw new ElementNotFound("Car: getCarByRegNumber " + regNumber
+				+ " - element not found");
+	}
+
+	/**
+	 * Returns a inside representation.
+	 * 
+	 * @since 1.0.1 24/10/2011
+	 * @return
+	 */
+	public List<Car> getListOfCars() {
+		return listOfCars;
 	}
 
 	/**
@@ -188,6 +195,32 @@ public class CarList {
 			System.out.println("Error przy zapisie");
 		}
 		System.out.println("Powinno być zapisane.");
+	}
+
+	/**
+	 * Updates a car object which has a provided registration number. If can't
+	 * find throws ElementNotFound
+	 * 
+	 * @since 1.0.1 24/10/2011
+	 * @param regNumber
+	 *            a registration number.
+	 * @param car
+	 *            a Car object.
+	 * @throws ElementNotFound
+	 */
+	public void updateItemByRegNumber(String regNumber, Car car)
+			throws ElementNotFound {
+		Boolean isError = true;
+		for (Car car_ : this.listOfCars) {
+			if (car_.getRegNumber().contentEquals(car.getRegNumber())) {
+				car_ = car;
+				isError = false;
+			}
+		}
+		if (isError) {
+			throw new ElementNotFound("Car: updateItemByRegNumber " + regNumber
+					+ " - element not found");
+		}
 	}
 
 }
