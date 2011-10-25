@@ -3,18 +3,24 @@
  */
 package pl.polsl.flota.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Marcin Jabrzyk
  * @since 1.0.1
  */
-public class Refuel implements Serializable {
-	Integer distance;
+public class Refuel {
 	Float amount;
-	Float value;
 	Date date;
+	Integer distance;
+	Float value;
+
+	/**
+	 * @since 1.0.1 24/10/2011
+	 */
+	public Refuel() {
+		super();
+	}
 
 	/**
 	 * @param distance
@@ -32,14 +38,19 @@ public class Refuel implements Serializable {
 	}
 
 	/**
+	 * @return the amount
 	 * @since 1.0.1 24/10/2011
 	 */
-	public Refuel() {
-		super();
-		this.distance = distance;
-		this.amount = amount;
-		this.value = value;
-		this.date = date;
+	public Float getAmount() {
+		return amount;
+	}
+
+	/**
+	 * @return the date
+	 * @since 1.0.1 24/10/2011
+	 */
+	public Date getDate() {
+		return date;
 	}
 
 	/**
@@ -51,20 +62,11 @@ public class Refuel implements Serializable {
 	}
 
 	/**
-	 * @param distance
-	 *            the distance to set
+	 * @return the value
 	 * @since 1.0.1 24/10/2011
 	 */
-	public void setDistance(Integer distance) {
-		this.distance = distance;
-	}
-
-	/**
-	 * @return the amount
-	 * @since 1.0.1 24/10/2011
-	 */
-	public Float getAmount() {
-		return amount;
+	public Float getValue() {
+		return value;
 	}
 
 	/**
@@ -77,11 +79,21 @@ public class Refuel implements Serializable {
 	}
 
 	/**
-	 * @return the value
+	 * @param date
+	 *            the date to set
 	 * @since 1.0.1 24/10/2011
 	 */
-	public Float getValue() {
-		return value;
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	/**
+	 * @param distance
+	 *            the distance to set
+	 * @since 1.0.1 24/10/2011
+	 */
+	public void setDistance(Integer distance) {
+		this.distance = distance;
 	}
 
 	/**
@@ -91,34 +103,6 @@ public class Refuel implements Serializable {
 	 */
 	public void setValue(Float value) {
 		this.value = value;
-	}
-
-	/**
-	 * @return the date
-	 * @since 1.0.1 24/10/2011
-	 */
-	public Date getDate() {
-		return date;
-	}
-
-	/**
-	 * @param date
-	 *            the date to set
-	 * @since 1.0.1 24/10/2011
-	 */
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Refuel [distance=" + distance + ", amount=" + amount
-				+ ", value=" + value + ", date=" + date + "]";
 	}
 
 }

@@ -5,10 +5,15 @@ package pl.polsl.flota.view;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import pl.polsl.flota.exceptions.ElementAlredyExists;
+import pl.polsl.flota.exceptions.ElementNotFound;
 import pl.polsl.flota.helpers.*;
 import pl.polsl.flota.model.Car;
 import pl.polsl.flota.model.CarList;
 import pl.polsl.flota.model.Refuel;
+import pl.polsl.flota.model.User;
+import pl.polsl.flota.model.UserList;
 
 /**
  * @author Marcin Jabrzyk
@@ -60,19 +65,66 @@ public final class MainWindow {
 
 		System.out.println("Witaj w programie Flota.");
 		CarList carList = new CarList();
+		try {
 		carList.addItem(new Car("SR12000", "Toyota Corolla", 100000,
 				(float) 5.2));
 		carList.addItem(new Car("SR12001", "Toyota Avensis", 200000,
 				(float) 7.2));
-		Car my_car = carList.getItem(null);
+		carList.addItem(new Car("SR12004", "Mazda 626", 200000,
+				(float) 7.2));
+		//carList.addItem(new Car("SR12001", "Toyota Avensis", 200000,
+		//		(float) 7.2));
+		} catch (ElementAlredyExists e) {
+			System.out.println("Było identical");
+			e.printStackTrace();
+		}
+		List<Car> moje_auta;
+		try {
+			moje_auta = carList.getCarByName("62");
+			System.out.print(moje_auta.size());
+		} catch (ElementNotFound e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Car my_car = null;
+		try {
+			my_car = carList.getCarByRegNumber("SR12001");
+		} catch (ElementNotFound e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		java.util.Date date = new java.util.Date();
 		my_car.addRefuel(new Refuel(100001, (float) 100.2, (float) 57.24, date));
 		my_car.addRefuel(new Refuel(100002, (float) 102.2, (float) 52.24, date));
+		System.out.println(my_car.getHistoryOfRefuel().get(0).getAmount());
 		carList.save("test.txt");
 
 		CarList carList2 = new CarList();
 		carList2.load("test.txt");
 		carList.save("test2.txt");
+		
+		//List<Car> myList = carList2.get();
+		for (Car item : carList2.getListOfCars() ){
+			System.out.println(item.toString());
+		}
+		
+		//User u1 = (new User("bzyx","marcin","Marcin Jabrzyk"));
+		//User u2 = (new User("sasia","sandra","Sandra Jabrzyk"));
+		//u1.setIsAdmin(true);
+		UserList ulist = new UserList();
+		//ulist.addItem(u1);
+		//ulist.addItem(u2);
+		//ulist.save("listaUserow.txt");
+		ulist.load("listaUserow_2.txt");
+		try {
+			ulist.addUser(new User("karol", "karol", "Karol Skoruch"));
+		} catch (ElementAlredyExists e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ulist.save("listaUserow.txt");
+		
 
 		Helpers.clearScren();
 		mainMenuAdmin(mywindow);
@@ -116,6 +168,7 @@ public final class MainWindow {
 		}
 		case 7: {
 			// Wyjście z programu
+			System.exit(0);
 		}
 		}
 		// System.out.println("Menu admin option: " + retVal);

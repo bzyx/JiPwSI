@@ -3,7 +3,6 @@
  */
 package pl.polsl.flota.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,69 +12,52 @@ import java.util.List;
  *         A model of Car in Flota. All the Object will be serialized to file.
  * @since 1.0.1
  */
-public class Car implements Serializable {
-	/**
-	 * It is required by Serializable interface.
-	 */
-	private static final long serialVersionUID = -5799913762582741920L;
+public class Car {
 
-	String reg_numer;
-
-	/**
-	 * @return the reg_numer
-	 * @since 1.0.1 24/10/2011
-	 */
-	public String getReg_numer() {
-		return reg_numer;
-	}
-
-	/**
-	 * @param reg_numer
-	 *            the reg_numer to set
-	 * @since 1.0.1 24/10/2011
-	 */
-	public void setReg_numer(String reg_numer) {
-		this.reg_numer = reg_numer;
-	}
-
-	String name;
-	Integer distance;
-	Float avgConsumpion;
 	Integer acctualDriverId;
+	Float avgConsumpion;
+	Integer distance;
 	List<Refuel> historyOfRefuel;
-
+	String name;
+	String regNumber;
 	/**
-	 * @return the name
 	 * @since 1.0.1 24/10/2011
 	 */
-	public String getName() {
-		return name;
+	public Car() {
+		super();
+		this.historyOfRefuel = new ArrayList<Refuel>();
 	}
-
 	/**
+	 * @param regNumber
 	 * @param name
-	 *            the name to set
-	 * @since 1.0.1 24/10/2011
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the distance
-	 * @since 1.0.1 24/10/2011
-	 */
-	public Integer getDistance() {
-		return distance;
-	}
-
-	/**
 	 * @param distance
-	 *            the distance to set
+	 * @param avgConsumpion
 	 * @since 1.0.1 24/10/2011
 	 */
-	public void setDistance(Integer distance) {
+	public Car(String regNumber, String name, Integer distance,
+			Float avgConsumpion) {
+		super();
+		this.regNumber = regNumber;
+		this.name = name;
 		this.distance = distance;
+		this.avgConsumpion = avgConsumpion;
+		this.historyOfRefuel = new ArrayList<Refuel>();
+	}
+
+	/**
+	 * @param refuel
+	 * @since 1.0.1 24/10/2011
+	 */
+	public void addRefuel(Refuel refuel) {
+		this.historyOfRefuel.add(refuel);
+	}
+
+	/**
+	 * @return the acctualDriverId
+	 * @since 1.0.1 24/10/2011
+	 */
+	public Integer getAcctualDriverId() {
+		return acctualDriverId;
 	}
 
 	/**
@@ -87,20 +69,35 @@ public class Car implements Serializable {
 	}
 
 	/**
-	 * @param avgConsumpion
-	 *            the avgConsumpion to set
+	 * @return the distance
 	 * @since 1.0.1 24/10/2011
 	 */
-	public void setAvgConsumpion(Float avgConsumpion) {
-		this.avgConsumpion = avgConsumpion;
+	public Integer getDistance() {
+		return distance;
 	}
 
 	/**
-	 * @return the acctualDriverId
+	 * @return the historyOfRefuel
 	 * @since 1.0.1 24/10/2011
 	 */
-	public Integer getAcctualDriverId() {
-		return acctualDriverId;
+	public List<Refuel> getHistoryOfRefuel() {
+		return historyOfRefuel;
+	}
+
+	/**
+	 * @return the name
+	 * @since 1.0.1 24/10/2011
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @return the reg_numer
+	 * @since 1.0.1 24/10/2011
+	 */
+	public String getRegNumber() {
+		return regNumber;
 	}
 
 	/**
@@ -113,11 +110,21 @@ public class Car implements Serializable {
 	}
 
 	/**
-	 * @return the historyOfRefuel
+	 * @param avgConsumpion
+	 *            the avgConsumpion to set
 	 * @since 1.0.1 24/10/2011
 	 */
-	public List<Refuel> getHistoryOfRefuel() {
-		return historyOfRefuel;
+	public void setAvgConsumpion(Float avgConsumpion) {
+		this.avgConsumpion = avgConsumpion;
+	}
+
+	/**
+	 * @param distance
+	 *            the distance to set
+	 * @since 1.0.1 24/10/2011
+	 */
+	public void setDistance(Integer distance) {
+		this.distance = distance;
 	}
 
 	/**
@@ -130,56 +137,21 @@ public class Car implements Serializable {
 	}
 
 	/**
-	 * @param reg_numer
 	 * @param name
-	 * @param distance
-	 * @param avgConsumpion
+	 *            the name to set
 	 * @since 1.0.1 24/10/2011
 	 */
-	public Car(String reg_numer, String name, Integer distance,
-			Float avgConsumpion) {
-		super();
-		this.reg_numer = reg_numer;
+	public void setName(String name) {
 		this.name = name;
-		this.distance = distance;
-		this.avgConsumpion = avgConsumpion;
-		this.historyOfRefuel = new ArrayList<Refuel>();
 	}
 
 	/**
+	 * @param regNumber
+	 *            the reg_numer to set
 	 * @since 1.0.1 24/10/2011
 	 */
-	public Car() {
-		super();
-		this.reg_numer = reg_numer;
-		this.name = name;
-		this.distance = distance;
-		this.avgConsumpion = avgConsumpion;
-		this.historyOfRefuel = new ArrayList<Refuel>();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Car [reg_numer=" + reg_numer + ", name=" + name + ", distance="
-				+ distance + ", avgConsumpion=" + avgConsumpion
-				+ ", acctualDriverId=" + acctualDriverId + ", historyOfRefuel="
-				+ historyOfRefuel + "]";
-	}
-
-	/**
-	 * @param refuel
-	 * @since 1.0.1 24/10/2011
-	 */
-	public void addRefuel(Refuel refuel) {
-		if (this.historyOfRefuel == null) {
-			System.out.println("MAM NULLA W REFUEL");
-		}
-		this.historyOfRefuel.add(refuel);
+	public void setRegNumber(String regNumber) {
+		this.regNumber = regNumber;
 	}
 
 }
