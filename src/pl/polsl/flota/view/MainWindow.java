@@ -5,17 +5,14 @@ package pl.polsl.flota.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import pl.polsl.flota.exceptions.ElementAlredyExists;
 import pl.polsl.flota.exceptions.ElementNotFound;
 import pl.polsl.flota.helpers.*;
-import pl.polsl.flota.model.Car;
-import pl.polsl.flota.model.CarList;
-import pl.polsl.flota.model.Refuel;
-import pl.polsl.flota.model.User;
-import pl.polsl.flota.model.UserList;
 
 /**
+ * 
  * @author Marcin Jabrzyk
  * @since 21/10/2011
  */
@@ -24,6 +21,9 @@ public final class MainWindow {
 	List<String> menuAdminMain = new ArrayList<String>();
 	List<String> menuAdminDriver = new ArrayList<String>();
 	List<String> menuDriverLvl1 = new ArrayList<String>();
+	AdminView adminView;
+	DriverView driverView;
+	Integer currentUserId;
 
 	/**
 	 * Default constructor which initializes some values which are global for
@@ -34,8 +34,8 @@ public final class MainWindow {
 	public MainWindow() {
 		// Values of menu for level 1 of the Application
 		menuAdminMain.add("	1) Dodaj pojazd.");
-		menuAdminMain.add("	2) Przeglądaj pojazd.");
-		menuAdminMain.add("	3) Edytuj pojazd.");
+		menuAdminMain.add("	2) Przeglądaj pojazdy.");
+		menuAdminMain.add("	3) Edytuj/Przeglądaj pojazd.");
 		menuAdminMain.add("	4) Usuń pojazd.");
 		menuAdminMain.add("	5) Kierowca.");
 		menuAdminMain.add("	6) Wyloguj.");
@@ -43,15 +43,21 @@ public final class MainWindow {
 
 		// This is menu for admin - "kierowca"
 		menuAdminDriver.add(" 1) Dodaj kierowcę.");
-		menuAdminDriver.add(" 2) Przeglądaj kierowcę.");
-		menuAdminDriver.add(" 3) Edytuj kierowcę.");
+		menuAdminDriver.add(" 2) Przeglądaj kierowców.");
+		menuAdminDriver.add(" 3) Zmień hasło.");
 		menuAdminDriver.add(" 4) Usuń kierowcę.");
 		menuAdminDriver.add(" 5) Cofnij do menu głównego");
 
 		// This menu is for the car driver
 		menuDriverLvl1.add("	1) Zanotuj tankowanie.");
 		menuDriverLvl1.add("	2) Zmień pojazd.");
-		menuDriverLvl1.add("	3) Wyjście.");
+		menuDriverLvl1.add("	3) Wyloguj.");
+		menuDriverLvl1.add("	4) Wyjście.");
+
+		currentUserId = -2;
+
+		adminView = new AdminView();
+		driverView = new DriverView();
 
 	}
 
@@ -63,71 +69,55 @@ public final class MainWindow {
 	public static void main(String[] args) {
 		MainWindow mywindow = new MainWindow();
 
+		if (args.length < 2) {
+			System.out
+					.println("Podaj nazwy pliku z użytkownikami i samochodami");
+			System.out.println("np. flota users.json cars.json ");
+			System.exit(0);
+		}
 		System.out.println("Witaj w programie Flota.");
-		CarList carList = new CarList();
-		try {
-		carList.addItem(new Car("SR12000", "Toyota Corolla", 100000,
-				(float) 5.2));
-		carList.addItem(new Car("SR12001", "Toyota Avensis", 200000,
-				(float) 7.2));
-		carList.addItem(new Car("SR12004", "Mazda 626", 200000,
-				(float) 7.2));
-		//carList.addItem(new Car("SR12001", "Toyota Avensis", 200000,
-		//		(float) 7.2));
-		} catch (ElementAlredyExists e) {
-			System.out.println("Było identical");
-			e.printStackTrace();
-		}
-		List<Car> moje_auta;
-		try {
-			moje_auta = carList.getCarByName("62");
-			System.out.print(moje_auta.size());
-		} catch (ElementNotFound e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Car my_car = null;
-		try {
-			my_car = carList.getCarByRegNumber("SR12001");
-		} catch (ElementNotFound e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		java.util.Date date = new java.util.Date();
-		my_car.addRefuel(new Refuel(100001, (float) 100.2, (float) 57.24, date));
-		my_car.addRefuel(new Refuel(100002, (float) 102.2, (float) 52.24, date));
-		System.out.println(my_car.getHistoryOfRefuel().get(0).getAmount());
-		carList.save("test.txt");
+		// mywindow.adminView.setFileNameCarList("test.txt");
+		// mywindow.adminView.setFileNameUserList("listaUserow.txt");
+		// mywindow.driverView.setFileNameCarList("test.txt");
+		// mywindow.driverView.setFileNameUserList("listaUserow.txt");
 
-		CarList carList2 = new CarList();
-		carList2.load("test.txt");
-		carList.save("test2.txt");
-		
-		//List<Car> myList = carList2.get();
-		for (Car item : carList2.getListOfCars() ){
-			System.out.println(item.toString());
-		}
-		
-		//User u1 = (new User("bzyx","marcin","Marcin Jabrzyk"));
-		//User u2 = (new User("sasia","sandra","Sandra Jabrzyk"));
-		//u1.setIsAdmin(true);
-		UserList ulist = new UserList();
-		//ulist.addItem(u1);
-		//ulist.addItem(u2);
-		//ulist.save("listaUserow.txt");
-		ulist.load("listaUserow_2.txt");
-		try {
-			ulist.addUser(new User("karol", "karol", "Karol Skoruch"));
-		} catch (ElementAlredyExists e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		ulist.save("listaUserow.txt");
-		
+		mywindow.adminView.setFileNameUserList(args[0]);
+		mywindow.driverView.setFileNameUserList(args[0]);
+		mywindow.adminView.setFileNameCarList(args[1]);
+		mywindow.driverView.setFileNameCarList(args[1]);
 
-		Helpers.clearScren();
-		mainMenuAdmin(mywindow);
+		while (true) {
+			mywindow.currentUserId = loginScreen(mywindow.currentUserId,
+					mywindow);
+			Helpers.clearScren();
+			if (mywindow.currentUserId < 0) {
+				System.out.println("Podaj prawidłowy login i hasło");
+				mywindow.currentUserId = loginScreen(mywindow.currentUserId,
+						mywindow);
+			} else {
+				if (mywindow.adminView.userIsAdmin(mywindow.currentUserId) == true) {
+					mainMenuAdmin(mywindow);
+				} else {
+					mainMenuDriver(mywindow);
+				}
+			}
+		}
+	}
+
+	private static Integer loginScreen(Integer currentId, MainWindow mywindow) {
+		if (currentId < 0) {
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("Podaj login: ");
+			String login = scanner.nextLine();
+			System.out.println("Podaj hasło: ");
+			String passwd = scanner.nextLine();
+			System.out.println(passwd);
+
+			return mywindow.adminView.checkUser(login, passwd);
+
+		}
+		return currentId;
+
 	}
 
 	/**
@@ -141,18 +131,39 @@ public final class MainWindow {
 		switch (retVal) {
 		case 1: {
 			// Dodaj pojazd
+			try {
+				mywindow.adminView.addCar();
+			} catch (ElementAlredyExists e) {
+				// TODO Auto-generated catch block
+				System.out.println("Taki samochód już istnieje.");
+				// e.printStackTrace();
+			}
 			break;
 		}
 		case 2: {
 			// Przeglądaj pojazd
+			mywindow.adminView.listCars();
 			break;
 		}
 		case 3: {
 			// Edytuj pojazd
+			try {
+				mywindow.adminView.editOrViewCar();
+			} catch (ElementNotFound e) {
+				System.out
+						.println("Samochód o podanych parametrach nie został znaleiziony.");
+			}
+
 			break;
 		}
 		case 4: {
 			// Usuń pojazd
+			try {
+				mywindow.adminView.deleteCar();
+			} catch (ElementNotFound e) {
+				System.out
+						.println("Samochód o podanych parametrach nie został znaleiziony.");
+			}
 			break;
 		}
 		case 5: {
@@ -164,10 +175,14 @@ public final class MainWindow {
 			break;
 		}
 		case 6: {
+			mywindow.currentUserId = -2;
+			mywindow.adminView.save();
 			// Wyloguj do okna głównego
+			break;
 		}
 		case 7: {
 			// Wyjście z programu
+			mywindow.adminView.save();
 			System.exit(0);
 		}
 		}
@@ -185,18 +200,35 @@ public final class MainWindow {
 		switch (retVal) {
 		case 1: {
 			// Dodaj kierowcę
+			try {
+				mywindow.adminView.addUser();
+			} catch (ElementAlredyExists e) {
+				// TODO Auto-generated catch block
+				System.out.println("Taki użytkownik już istnieje");
+			}
 			break;
 		}
 		case 2: {
-			// Przeglądaj kierowcę
+			// Przeglądaj kierowców
+			mywindow.adminView.listUsers();
 			break;
 		}
 		case 3: {
 			// Edytuj kierowcę
+			try {
+				mywindow.adminView.editUser();
+			} catch (ElementNotFound e) {
+				System.out.println("Podano błędne id użytkownika.");
+			}
 			break;
 		}
 		case 4: {
 			// Usuń kierowcę
+			try {
+				mywindow.adminView.deleteUser();
+			} catch (ElementNotFound e) {
+				System.out.println("Podano błędne id użytkownika.");
+			}
 			break;
 		}
 		case 5: {
@@ -216,19 +248,40 @@ public final class MainWindow {
 	 * @since 1.0.0 24/10/2011
 	 */
 	private static void mainMenuDriver(MainWindow mywindow) {
-		Integer retVal = Helpers.menuToOptionId(mywindow.menuAdminDriver);
+		Integer retVal = Helpers.menuToOptionId(mywindow.menuDriverLvl1);
 		switch (retVal) {
 		case 1: {
 			// Zanotuj tankowanie
+			try {
+				Helpers.clearScren();
+				mywindow.driverView.userRefuel(mywindow.currentUserId);
+			} catch (NumberFormatException | ElementNotFound e) {
+				System.out
+						.println("Błąd podczas dodawania tankowania. Sprawdź format danych.");
+			}
 			break;
 		}
 		case 2: {
 			// Zmień pojazd
+			try {
+				Helpers.clearScren();
+				mywindow.driverView.userChangeCar(mywindow.currentUserId);
+			} catch (ElementNotFound e) {
+				System.out
+						.println("Podano nieprawidłowy numer rejestracyjny pojazdu.");
+			}
 			break;
 		}
 		case 3: {
 			// Wyloguj
+			mywindow.currentUserId = -2;
+			mywindow.driverView.save();
 			break;
+		}
+		case 4: {
+			// Wyjście
+			mywindow.driverView.save();
+			System.exit(0);
 		}
 		}
 	}

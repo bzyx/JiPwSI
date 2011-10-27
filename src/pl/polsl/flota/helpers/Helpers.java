@@ -61,9 +61,24 @@ public final class Helpers {
 	 * @since 1.0.0 24/10/2011
 	 */
 	public static void clearScren(){
-		System.out.printf("\033[H\033[2J");
 		System.out.println("--------------------------------------------------------------------------------");
 		System.out.println("");
+		
+		
+//		try {                 
+//            if (System.getProperty("os.name").startsWith("you operating system")) {
+//                Runtime.getRuntime().exec("cls");
+//            } 
+//            else {
+//                Runtime.getRuntime().exec("clear");
+//            }
+//            
+//        }  
+//        catch (Exception e) {
+//            for (int x = 0; x < 100; x++) {
+//                System.out.println();
+//            }
+//        }
 	}
 
 }

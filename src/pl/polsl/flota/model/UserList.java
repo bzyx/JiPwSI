@@ -166,7 +166,6 @@ public class UserList {
 			e.printStackTrace();
 			System.out.println("Error przy zapisie");
 		}
-		System.out.println("Powinno być zapisane.");
 	}
 
 	/**

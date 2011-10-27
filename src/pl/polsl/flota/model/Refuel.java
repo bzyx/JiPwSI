@@ -6,6 +6,7 @@ package pl.polsl.flota.model;
 import java.util.Date;
 
 /**
+ * For use @see Car . This is helper Class for Car class.
  * @author Marcin Jabrzyk
  * @since 1.0.1
  */
@@ -23,6 +24,7 @@ public class Refuel {
 	}
 
 	/**
+	 * The Constructor with all needed parms.
 	 * @param distance
 	 * @param amount
 	 * @param value

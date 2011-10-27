@@ -135,6 +135,15 @@ public class CarList {
 				+ " - element not found");
 	}
 
+	public Car getCarForUser(Integer userId) throws ElementNotFound {
+		for (Car car : this.listOfCars) {
+			if (car.getAcctualDriverId()  == userId) {
+				return car;
+			}
+		}
+		throw new ElementNotFound("Car: getCarForUser " + userId
+				+ " - element not found");
+	}
 	/**
 	 * Returns a inside representation.
 	 * 
@@ -194,33 +203,33 @@ public class CarList {
 			e.printStackTrace();
 			System.out.println("Error przy zapisie");
 		}
-		System.out.println("Powinno być zapisane.");
 	}
 
-	/**
-	 * Updates a car object which has a provided registration number. If can't
-	 * find throws ElementNotFound
-	 * 
-	 * @since 1.0.1 24/10/2011
-	 * @param regNumber
-	 *            a registration number.
-	 * @param car
-	 *            a Car object.
-	 * @throws ElementNotFound
-	 */
-	public void updateItemByRegNumber(String regNumber, Car car)
-			throws ElementNotFound {
-		Boolean isError = true;
-		for (Car car_ : this.listOfCars) {
-			if (car_.getRegNumber().contentEquals(car.getRegNumber())) {
-				car_ = car;
-				isError = false;
-			}
-		}
-		if (isError) {
-			throw new ElementNotFound("Car: updateItemByRegNumber " + regNumber
-					+ " - element not found");
-		}
-	}
+//	/**
+//	 * 
+//	 * Updates a car object which has a provided registration number. If can't
+//	 * find throws ElementNotFound
+//	 * 
+//	 * @since 1.0.1 24/10/2011
+//	 * @param regNumber
+//	 *            a registration number.
+//	 * @param car
+//	 *            a Car object.
+//	 * @throws ElementNotFound
+//	 */
+//	public void updateItemByRegNumber(String regNumber, Car car)
+//			throws ElementNotFound {
+//		Boolean isError = true;
+//		for (Car car_ : this.listOfCars) {
+//			if (car_.getRegNumber().contentEquals(car.getRegNumber())) {
+//				car_ = car;
+//				isError = false;
+//			}
+//		}
+//		if (isError) {
+//			throw new ElementNotFound("Car: updateItemByRegNumber " + regNumber
+//					+ " - element not found");
+//		}
+//	}
 
 }
