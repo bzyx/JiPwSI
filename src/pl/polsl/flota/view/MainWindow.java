@@ -3,6 +3,7 @@
  */
 package pl.polsl.flota.view;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -76,15 +77,15 @@ public final class MainWindow {
 			System.exit(0);
 		}
 		System.out.println("Witaj w programie Flota.");
-		// mywindow.adminView.setFileNameCarList("test.txt");
-		// mywindow.adminView.setFileNameUserList("listaUserow.txt");
-		// mywindow.driverView.setFileNameCarList("test.txt");
-		// mywindow.driverView.setFileNameUserList("listaUserow.txt");
-
-		mywindow.adminView.setFileNameUserList(args[0]);
-		mywindow.driverView.setFileNameUserList(args[0]);
-		mywindow.adminView.setFileNameCarList(args[1]);
-		mywindow.driverView.setFileNameCarList(args[1]);
+		try {
+			mywindow.adminView.setFileNameUserList(args[0]);
+			mywindow.driverView.setFileNameUserList(args[0]);
+			mywindow.adminView.setFileNameCarList(args[1]);
+			mywindow.driverView.setFileNameCarList(args[1]);
+		} catch (IOException e) {
+			System.out.println("Błąd podczas otwierania pliku.");
+			System.exit(0);
+		}
 
 		while (true) {
 			mywindow.currentUserId = loginScreen(mywindow.currentUserId,
@@ -104,6 +105,13 @@ public final class MainWindow {
 		}
 	}
 
+	/**
+	 * Login screen at startup of the app.
+	 * If currentId is valid then simply returns out of the function.
+	 * @param currentId te id of current working user
+	 * @param mywindow refrence to current window
+	 * @return the userId
+	 */
 	private static Integer loginScreen(Integer currentId, MainWindow mywindow) {
 		if (currentId < 0) {
 			Scanner scanner = new Scanner(System.in);
@@ -111,7 +119,6 @@ public final class MainWindow {
 			String login = scanner.nextLine();
 			System.out.println("Podaj hasło: ");
 			String passwd = scanner.nextLine();
-			System.out.println(passwd);
 
 			return mywindow.adminView.checkUser(login, passwd);
 
@@ -186,7 +193,6 @@ public final class MainWindow {
 			System.exit(0);
 		}
 		}
-		// System.out.println("Menu admin option: " + retVal);
 	}
 
 	/**

@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * A model of Car in Flota.
+ * 
  * @author Marcin Jabrzyk
  * @since 1.0.1
  */
@@ -19,16 +20,20 @@ public class Car {
 	List<Refuel> historyOfRefuel;
 	String name;
 	String regNumber;
+
 	/**
-	 * Default constructor. Only initalizes the array for refuels. 
+	 * Default constructor. Only initializes the array for refuels.
+	 * 
 	 * @since 1.0.1 24/10/2011
 	 */
 	public Car() {
 		super();
 		this.historyOfRefuel = new ArrayList<Refuel>();
 	}
+
 	/**
 	 * Full constructor with all needed parameters.
+	 * 
 	 * @param regNumber
 	 * @param name
 	 * @param distance
@@ -47,6 +52,7 @@ public class Car {
 
 	/**
 	 * Adds a refuel to a current car.
+	 * 
 	 * @param refuel
 	 * @since 1.0.1 24/10/2011
 	 */
@@ -80,6 +86,7 @@ public class Car {
 
 	/**
 	 * Return a list of refuel's of the current car.
+	 * 
 	 * @return the historyOfRefuel
 	 * @since 1.0.1 24/10/2011
 	 */
@@ -132,6 +139,7 @@ public class Car {
 
 	/**
 	 * Sets a new history o refuels to a car object.
+	 * 
 	 * @param historyOfRefuel
 	 *            the historyOfRefuel to set
 	 * @since 1.0.1 24/10/2011

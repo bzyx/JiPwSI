@@ -122,11 +122,10 @@ public class UserList {
 	 * 
 	 * @param fileName
 	 *            name of file to read
+	 * @throws IOException 
 	 * @since 1.0.2 25/10/2011
 	 */
-	// TODO: Wyłączyć println, zamiast tego throws ErrorLoadingFile - z własnych
-	// wyjątków
-	public void load(String fileName) {
+	public void load(String fileName) throws IOException {
 		try {
 			FileReader fileReader = new FileReader(fileName);
 			this.listOfUsers = new JSONDeserializer<List<User>>()
@@ -134,13 +133,16 @@ public class UserList {
 			fileReader.close();
 		} catch (JSONException e) {
 			System.out.println("Błąd wczytywania pliku.");
-			e.printStackTrace();
+			throw new IOException();
+			//e.printStackTrace();
 		} catch (FileNotFoundException e) {
 			System.out.println("Błędna nazwa pliku lub plik nie istnieje.");
-			e.printStackTrace();
+			throw new IOException();
+			//e.printStackTrace();
 		} catch (IOException e) {
 			System.out.println("Bład we/wy.");
-			e.printStackTrace();
+			throw new IOException();
+			//e.printStackTrace();
 		}
 		// We must provide a value to lastUserId after loading a file.
 		User.setLastUserId(this.listOfUsers.get(this.listOfUsers.size() - 1)

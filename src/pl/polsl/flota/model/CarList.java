@@ -26,7 +26,7 @@ import flexjson.JSONSerializer;
  */
 public class CarList {
 	/**
-	 * A inside object wihch is the list of cars.
+	 * A inside object which is the list of cars.
 	 */
 	List<Car> listOfCars;
 
@@ -135,15 +135,23 @@ public class CarList {
 				+ " - element not found");
 	}
 
+	/**
+	 * Returns a Car object for a User with a userId
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws ElementNotFound
+	 */
 	public Car getCarForUser(Integer userId) throws ElementNotFound {
 		for (Car car : this.listOfCars) {
-			if (car.getAcctualDriverId()  == userId) {
+			if (car.getAcctualDriverId() == userId) {
 				return car;
 			}
 		}
 		throw new ElementNotFound("Car: getCarForUser " + userId
 				+ " - element not found");
 	}
+
 	/**
 	 * Returns a inside representation.
 	 * 
@@ -160,11 +168,10 @@ public class CarList {
 	 * 
 	 * @param fileName
 	 *            name of file to read
+	 * @throws IOException
 	 * @since 1.0.1 24/10/2011
 	 */
-	// TODO: Wyłączyć println, zamiast tego throws ErrorLoadingFile - z własnych
-	// wyjątków
-	public void load(String fileName) {
+	public void load(String fileName) throws IOException {
 		try {
 			FileReader fileReader = new FileReader(fileName);
 			this.listOfCars = new JSONDeserializer<List<Car>>()
@@ -172,13 +179,16 @@ public class CarList {
 			fileReader.close();
 		} catch (JSONException e) {
 			System.out.println("Błąd wczytywania pliku.");
-			e.printStackTrace();
+			throw new IOException();
+			// e.printStackTrace();
 		} catch (FileNotFoundException e) {
 			System.out.println("Błędna nazwa pliku lub plik nie istnieje.");
-			e.printStackTrace();
+			throw new IOException();
+			// e.printStackTrace();
 		} catch (IOException e) {
 			System.out.println("Bład we/wy.");
-			e.printStackTrace();
+			throw new IOException();
+			// e.printStackTrace();
 		}
 
 	}
@@ -204,32 +214,4 @@ public class CarList {
 			System.out.println("Error przy zapisie");
 		}
 	}
-
-//	/**
-//	 * 
-//	 * Updates a car object which has a provided registration number. If can't
-//	 * find throws ElementNotFound
-//	 * 
-//	 * @since 1.0.1 24/10/2011
-//	 * @param regNumber
-//	 *            a registration number.
-//	 * @param car
-//	 *            a Car object.
-//	 * @throws ElementNotFound
-//	 */
-//	public void updateItemByRegNumber(String regNumber, Car car)
-//			throws ElementNotFound {
-//		Boolean isError = true;
-//		for (Car car_ : this.listOfCars) {
-//			if (car_.getRegNumber().contentEquals(car.getRegNumber())) {
-//				car_ = car;
-//				isError = false;
-//			}
-//		}
-//		if (isError) {
-//			throw new ElementNotFound("Car: updateItemByRegNumber " + regNumber
-//					+ " - element not found");
-//		}
-//	}
-
 }

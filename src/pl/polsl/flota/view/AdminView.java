@@ -3,6 +3,7 @@
  */
 package pl.polsl.flota.view;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,14 +26,18 @@ public class AdminView {
 	Scanner scanner;
 
 	/**
-	 * 
+	 * Contsturcor of AdminVie
 	 */
 	public AdminView() {
 		super();
-		// TODO Auto-generated constructor stub
 		this.scanner = new Scanner(System.in);
 	}
 
+	/**
+	 * A View method to Add a car.
+	 * 
+	 * @throws ElementAlredyExists
+	 */
 	public void addCar() throws ElementAlredyExists {
 		Helpers.clearScren();
 
@@ -66,6 +71,11 @@ public class AdminView {
 				userConsumpitonFloat);
 	}
 
+	/**
+	 * A View to delete a Car
+	 * 
+	 * @throws ElementNotFound
+	 */
 	public void deleteCar() throws ElementNotFound {
 		Helpers.clearScren();
 		System.out
@@ -83,6 +93,11 @@ public class AdminView {
 
 	}
 
+	/**
+	 * A method of View to present a one car it has an ability to edit this Car.
+	 * 
+	 * @throws ElementNotFound
+	 */
 	public void editOrViewCar() throws ElementNotFound {
 		Helpers.clearScren();
 		System.out
@@ -125,6 +140,9 @@ public class AdminView {
 
 	}
 
+	/**
+	 * View method presnt all Cars
+	 */
 	public void listCars() {
 		Helpers.clearScren();
 		List<String> carList;
@@ -135,6 +153,9 @@ public class AdminView {
 		}
 	}
 
+	/**
+	 * A helper method to call save method from controller.
+	 */
 	public void save() {
 		carController.save(fileNameCarList);
 		userController.save(fileNameUserList);
@@ -144,36 +165,50 @@ public class AdminView {
 	/**
 	 * @param fileName
 	 *            the fileName to set
+	 * @throws IOException
 	 */
-	public void setFileNameCarList(String fileName) {
+	public void setFileNameCarList(String fileName) throws IOException {
 		this.fileNameCarList = fileName;
 		carController = new CarController(fileName);
 	}
-	
+
 	/*
-	* Here starts part for Admin - Kierowca
-	*
-	*/
-	
-	public void setFileNameUserList(String fileName) {
+	 * Here starts part for Admin - Kierowca
+	 */
+
+	/**
+	 * Set a fileName of User file.
+	 * 
+	 * @param fileName
+	 * @throws IOException
+	 */
+	public void setFileNameUserList(String fileName) throws IOException {
 		this.fileNameUserList = fileName;
 		userController = new UserController(fileName);
 	}
-	
+
+	/**
+	 * A View method to add a User.
+	 * 
+	 * @throws ElementAlredyExists
+	 */
 	public void addUser() throws ElementAlredyExists {
 		Helpers.clearScren();
-		
+
 		System.out.println("Podaj nazwę użytkownika : ?");
 		String userName = scanner.nextLine();
 		System.out.println("Podaj hasło użytkownika : ?");
 		String userPassword = scanner.nextLine();
 		System.out.println("Podaj pełną nazwę użytkownika : ?");
 		String userFullName = scanner.nextLine();
-		
-		userController.addUser(userName,userPassword,userFullName);
-		
+
+		userController.addUser(userName, userPassword, userFullName);
+
 	}
 
+	/**
+	 * View method that list all users.
+	 */
 	public void listUsers() {
 		Helpers.clearScren();
 		List<String> userList;
@@ -182,30 +217,55 @@ public class AdminView {
 		for (String userString : userList) {
 			System.out.println(userString);
 		}
-		
+
 	}
-	
+
+	/**
+	 * View method that edit a User.
+	 * 
+	 * @throws ElementNotFound
+	 */
 	public void editUser() throws ElementNotFound {
 		Helpers.clearScren();
-		System.out.println("Podaj id użytkownika, którego hasło chcesz zmienić: ?");
+		System.out
+				.println("Podaj id użytkownika, którego hasło chcesz zmienić: ?");
 		String userId = scanner.nextLine();
 		System.out.println("Podaj nowe hasło dla użytkownika: ?");
 		String userPassword = scanner.nextLine();
 		userController.editUser(userId, userPassword);
 	}
-	
+
+	/**
+	 * View method that deletes a User
+	 * 
+	 * @throws ElementNotFound
+	 */
 	public void deleteUser() throws ElementNotFound {
 		Helpers.clearScren();
 		System.out.println("Podaj id użytkownika, którego chcesz usunąć: ?");
 		String userId = scanner.nextLine();
 		userController.deleteUser(userId);
 	}
-	
-	public Integer checkUser(String userName, String userPassword){
-		return userController.checkUser(userName,userPassword);
+
+	/**
+	 * View method that checks is the user is valid. Calls the controller
+	 * method.
+	 * 
+	 * @param userName
+	 * @param userPassword
+	 * @return
+	 */
+	public Integer checkUser(String userName, String userPassword) {
+		return userController.checkUser(userName, userPassword);
 	}
-	
-	public Boolean userIsAdmin(Integer userId){
+
+	/**
+	 * View method that checks if user is admin. Calls the controller method.
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public Boolean userIsAdmin(Integer userId) {
 		return userController.isAdmin(userId);
 	}
 

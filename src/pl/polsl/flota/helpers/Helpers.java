@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * @author Marcin Jabrzyk
  * 
- * Class with common functions which should not be in M,V or C.
+ *         Class with common functions which should not be in M,V or C.
  */
 public final class Helpers {
 
@@ -54,31 +54,16 @@ public final class Helpers {
 		return returnValue;
 
 	}
-	
+
 	/**
 	 * Clears the screen and make a delimiter from the previous menu.
 	 * 
 	 * @since 1.0.0 24/10/2011
 	 */
-	public static void clearScren(){
-		System.out.println("--------------------------------------------------------------------------------");
+	public static void clearScren() {
+		System.out
+				.println("--------------------------------------------------------------------------------");
 		System.out.println("");
-		
-		
-//		try {                 
-//            if (System.getProperty("os.name").startsWith("you operating system")) {
-//                Runtime.getRuntime().exec("cls");
-//            } 
-//            else {
-//                Runtime.getRuntime().exec("clear");
-//            }
-//            
-//        }  
-//        catch (Exception e) {
-//            for (int x = 0; x < 100; x++) {
-//                System.out.println();
-//            }
-//        }
 	}
 
 }
