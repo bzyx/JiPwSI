@@ -4,15 +4,22 @@
 package pl.polsl.flota.model;
 
 /**
- * A class which handles User object.
- * 
+ * A class which handle User object.
  * @author Marcin Jabrzyk
- * @since 1.0.2 25/10/2011
- * 
  */
 public class User {
+
+	String fullName;
+	Boolean isAdmin;
+	String password;
+	Integer userId;
+	String userName;
+
+	{
+		lastUserId++;
+	}
 	/**
-	 * A varible to get the next userId
+	 * A variable to get the next userId
 	 */
 	static Integer lastUserId = 0;
 
@@ -31,15 +38,6 @@ public class User {
 	 */
 	public static void setLastUserId(Integer lastUserId) {
 		User.lastUserId = lastUserId;
-	}
-
-	String fullName;
-	Boolean isAdmin;
-	String password;
-	Integer userId;
-	String userName;
-	{
-		lastUserId++;
 	}
 
 	/**

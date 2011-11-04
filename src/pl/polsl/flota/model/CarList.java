@@ -71,24 +71,8 @@ public class CarList {
 	public void deleteItem(Car car) {
 		listOfCars.remove(car);
 	}
-
-	/**
-	 * Tries to get a car by Object if not found throws ElementNotFound
-	 * 
-	 * @since 1.0.1 24/10/2011
-	 * @param car
-	 * @return a Car object
-	 * @throws ElementNotFound
-	 */
-	// TODO: Propably to remove
-	public Car getCar(Car car) throws ElementNotFound {
-		for (Car car_ : this.listOfCars) {
-			if (car_.equals(car)) {
-				return car_;
-			}
-		}
-		throw new ElementNotFound("Car: getCar - element not found");
-	}
+	
+	//TODO: Here ends the car model rest of the methods should go to Car Controller!
 
 	/**
 	 * Tries to find cars which have in the name a name parm. If don't found
@@ -125,7 +109,7 @@ public class CarList {
 	 * @return a Car Object
 	 * @throws ElementNotFound
 	 */
-	public Car getCarByRegNumber(String regNumber) throws ElementNotFound {
+	public Car getCarByRegistrationNumber(String regNumber) throws ElementNotFound {
 		for (Car car : this.listOfCars) {
 			if (car.getRegNumber().contentEquals(regNumber)) {
 				return car;

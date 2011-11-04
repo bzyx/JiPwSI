@@ -1,8 +1,15 @@
 /**
- * 
+ * This file has a main method. From which the application starts. 
  */
 package pl.polsl.flota.view;
 
+//TODO: Dodac komentarze na poczatku klas. 
+//TODO: Zmienic kolejnosc pierwsze opis potem autor.
+//TODO: Przesunac zeczy wyszukujace auta z modelu do kontrolera.
+//TODO: Tworzenie samochodow nie za pomoca konstruktora tylko budowniczgo - przyklad zakomentiwany.
+//TODO: Usunac zbedne entery przed klamrami.
+
+//FIXME: IMPLEMNETACJA r3 do 18/11/2011 ;)
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +20,11 @@ import pl.polsl.flota.exceptions.ElementNotFound;
 import pl.polsl.flota.helpers.*;
 
 /**
+ * This is the main class of the application instance.
  * 
  * @author Marcin Jabrzyk
- * @since 21/10/2011
  */
 public final class MainWindow {
-
 	List<String> menuAdminMain = new ArrayList<String>();
 	List<String> menuAdminDriver = new ArrayList<String>();
 	List<String> menuDriverLvl1 = new ArrayList<String>();
@@ -26,11 +32,28 @@ public final class MainWindow {
 	DriverView driverView;
 	Integer currentUserId;
 
+	static final int AM_DODAJ_POJAZD = 1;
+	static final int AM_PRZEGLADAJ_POJAZDY = 2;
+	static final int AM_EDYTUJ_POJAZD = 3;
+	static final int AM_USUN_POJAZD = 4;
+	static final int AM_KIEROWCA = 5;
+	static final int AM_WYLOGUJ = 6;
+	static final int AM_WYJŚCIE = 7;
+
+	static final int AD_DODAJ_KIEROWCE = 1;
+	static final int AD_PRZEGLADAJ_KIEROWCOW = 2;
+	static final int AD_ZMIEN_HASLO = 3;
+	static final int AD_USUN_KIEROWCE = 4;
+	static final int AD_COFNIJ_DO_MENU = 5;
+
+	static final int D_ZANOTUJ_TANKOWANIE = 1;
+	static final int D_ZMIEN_POJAZD = 2;
+	static final int D_WYLOGUJ = 3;
+	static final int D_WYJSCIE = 4;
+
 	/**
 	 * Default constructor which initializes some values which are global for
 	 * whole Application.
-	 * 
-	 * @since 1.0.0 21/10/2011
 	 */
 	public MainWindow() {
 		// Values of menu for level 1 of the Application
@@ -65,7 +88,6 @@ public final class MainWindow {
 	/**
 	 * @param args
 	 *            Runtime args
-	 * @since 1.0.0 21/10/2011
 	 */
 	public static void main(String[] args) {
 		MainWindow mywindow = new MainWindow();
@@ -106,10 +128,13 @@ public final class MainWindow {
 	}
 
 	/**
-	 * Login screen at startup of the app.
-	 * If currentId is valid then simply returns out of the function.
-	 * @param currentId te id of current working user
-	 * @param mywindow refrence to current window
+	 * Login screen at startup of the app. If currentId is valid then simply
+	 * returns out of the function.
+	 * 
+	 * @param currentId
+	 *            te id of current working user
+	 * @param mywindow
+	 *            refrence to current window
 	 * @return the userId
 	 */
 	private static Integer loginScreen(Integer currentId, MainWindow mywindow) {
@@ -131,29 +156,23 @@ public final class MainWindow {
 	 * This function generates and handles the main menu for application admin.
 	 * 
 	 * @param mywindow
-	 * @since 1.0.0 24/10/2011
 	 */
 	private static void mainMenuAdmin(MainWindow mywindow) {
 		Integer retVal = Helpers.menuToOptionId(mywindow.menuAdminMain);
 		switch (retVal) {
-		case 1: {
-			// Dodaj pojazd
+		case AM_DODAJ_POJAZD: {
 			try {
 				mywindow.adminView.addCar();
 			} catch (ElementAlredyExists e) {
-				// TODO Auto-generated catch block
 				System.out.println("Taki samochód już istnieje.");
-				// e.printStackTrace();
 			}
 			break;
 		}
-		case 2: {
-			// Przeglądaj pojazd
+		case AM_PRZEGLADAJ_POJAZDY: {
 			mywindow.adminView.listCars();
 			break;
 		}
-		case 3: {
-			// Edytuj pojazd
+		case AM_EDYTUJ_POJAZD: {
 			try {
 				mywindow.adminView.editOrViewCar();
 			} catch (ElementNotFound e) {
@@ -163,8 +182,7 @@ public final class MainWindow {
 
 			break;
 		}
-		case 4: {
-			// Usuń pojazd
+		case AM_USUN_POJAZD: {
 			try {
 				mywindow.adminView.deleteCar();
 			} catch (ElementNotFound e) {
@@ -173,22 +191,17 @@ public final class MainWindow {
 			}
 			break;
 		}
-		case 5: {
-			// Kierowca
-			// TODO: Should clean the console first
+		case AM_KIEROWCA: {
 			Helpers.clearScren();
 			mainMenuAdminDriver(mywindow);
-			// Should check the return value and make the right functions
 			break;
 		}
-		case 6: {
+		case AM_WYLOGUJ: {
 			mywindow.currentUserId = -2;
 			mywindow.adminView.save();
-			// Wyloguj do okna głównego
 			break;
 		}
-		case 7: {
-			// Wyjście z programu
+		case AM_WYJŚCIE: {
 			mywindow.adminView.save();
 			System.exit(0);
 		}
@@ -199,28 +212,23 @@ public final class MainWindow {
 	 * This function generates and handles Driver section in admin menu
 	 * 
 	 * @param mywindow
-	 * @since 1.0.0 24/10/2011
 	 */
 	private static void mainMenuAdminDriver(MainWindow mywindow) {
 		Integer retVal = Helpers.menuToOptionId(mywindow.menuAdminDriver);
 		switch (retVal) {
-		case 1: {
-			// Dodaj kierowcę
+		case AD_DODAJ_KIEROWCE: {
 			try {
 				mywindow.adminView.addUser();
 			} catch (ElementAlredyExists e) {
-				// TODO Auto-generated catch block
 				System.out.println("Taki użytkownik już istnieje");
 			}
 			break;
 		}
-		case 2: {
-			// Przeglądaj kierowców
+		case AD_PRZEGLADAJ_KIEROWCOW: {
 			mywindow.adminView.listUsers();
 			break;
 		}
-		case 3: {
-			// Edytuj kierowcę
+		case AD_ZMIEN_HASLO: {
 			try {
 				mywindow.adminView.editUser();
 			} catch (ElementNotFound e) {
@@ -228,8 +236,7 @@ public final class MainWindow {
 			}
 			break;
 		}
-		case 4: {
-			// Usuń kierowcę
+		case AD_USUN_KIEROWCE: {
 			try {
 				mywindow.adminView.deleteUser();
 			} catch (ElementNotFound e) {
@@ -237,38 +244,35 @@ public final class MainWindow {
 			}
 			break;
 		}
-		case 5: {
-			// Menu główne
+		case AD_COFNIJ_DO_MENU: {
 			Helpers.clearScren();
 			mainMenuAdmin(mywindow);
 			break;
 		}
 		}
-		// System.out.println("Menu admin for driver option: " + retVal);
 	}
 
 	/**
 	 * This function generates and handles Driver menu
 	 * 
 	 * @param mywindow
-	 * @since 1.0.0 24/10/2011
 	 */
 	private static void mainMenuDriver(MainWindow mywindow) {
 		Integer retVal = Helpers.menuToOptionId(mywindow.menuDriverLvl1);
 		switch (retVal) {
-		case 1: {
-			// Zanotuj tankowanie
+		case D_ZANOTUJ_TANKOWANIE: {
 			try {
 				Helpers.clearScren();
 				mywindow.driverView.userRefuel(mywindow.currentUserId);
-			} catch (NumberFormatException | ElementNotFound e) {
+			} catch (NumberFormatException e) {
 				System.out
 						.println("Błąd podczas dodawania tankowania. Sprawdź format danych.");
+			} catch (ElementNotFound e) {
+				System.out.println("Błąd podczas dodawania tankowania.");
 			}
 			break;
 		}
-		case 2: {
-			// Zmień pojazd
+		case D_ZMIEN_POJAZD: {
 			try {
 				Helpers.clearScren();
 				mywindow.driverView.userChangeCar(mywindow.currentUserId);
@@ -278,14 +282,12 @@ public final class MainWindow {
 			}
 			break;
 		}
-		case 3: {
-			// Wyloguj
+		case D_WYLOGUJ: {
 			mywindow.currentUserId = -2;
 			mywindow.driverView.save();
 			break;
 		}
-		case 4: {
-			// Wyjście
+		case D_WYJSCIE: {
 			mywindow.driverView.save();
 			System.exit(0);
 		}

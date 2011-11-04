@@ -21,7 +21,7 @@ import pl.polsl.flota.model.Refuel;
  */
 public class CarController {
 
-	static CarList carList;
+	CarList carList;
 
 	/**
 	 * Main CarController which load and initializes the file.
@@ -109,7 +109,7 @@ public class CarController {
 		Car foundCar;
 
 		try {
-			foundCar = carList.getCarByRegNumber(userTydpedIn);
+			foundCar = carList.getCarByRegistrationNumber(userTydpedIn);
 		} catch (ElementNotFound e) {
 			try {
 				foundCar = carList.getCarByName(userTydpedIn).get(0);
@@ -156,7 +156,7 @@ public class CarController {
 	 */
 	public void editCar(String regNumber, String userCarName,
 			String userDistance, String userConsumpiton) throws ElementNotFound {
-		Car carToEdit = carList.getCarByRegNumber(regNumber);
+		Car carToEdit = carList.getCarByRegistrationNumber(regNumber);
 
 		if (!userCarName.startsWith("-")) {
 			carToEdit.setName(userCarName);
@@ -194,7 +194,7 @@ public class CarController {
 	public void deleteCar(String string) {
 		Car car = null;
 		try {
-			car = carList.getCarByRegNumber(string);
+			car = carList.getCarByRegistrationNumber(string);
 		} catch (ElementNotFound e) {
 			System.out.println("CarController: deleteCar car not found");
 		}
@@ -215,7 +215,7 @@ public class CarController {
 				car.setAcctualDriverId(null);
 			}
 		}
-		Car foundCar = carList.getCarByRegNumber(carRegNumber);
+		Car foundCar = carList.getCarByRegistrationNumber(carRegNumber);
 		foundCar.setAcctualDriverId(userId);
 	}
 

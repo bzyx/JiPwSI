@@ -18,7 +18,7 @@ import pl.polsl.flota.model.UserList;
  */
 public class UserController {
 
-	static UserList userList;
+	UserList userList;
 
 	/**
 	 * Constructor of UserController
