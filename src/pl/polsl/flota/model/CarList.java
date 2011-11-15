@@ -7,12 +7,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import pl.polsl.flota.exceptions.ElementAlredyExists;
-import pl.polsl.flota.exceptions.ElementNotFound;
 
 import flexjson.JSONDeserializer;
 import flexjson.JSONException;
@@ -72,70 +70,6 @@ public class CarList {
 		listOfCars.remove(car);
 	}
 	
-	//TODO: Here ends the car model rest of the methods should go to Car Controller!
-
-	/**
-	 * Tries to find cars which have in the name a name parm. If don't found
-	 * anything throws ElementNotFound
-	 * 
-	 * @since 1.0.1 24/10/2011
-	 * @param name
-	 *            to find
-	 * @return A list of cars
-	 * @throws ElementNotFound
-	 */
-	public List<Car> getCarByName(String name) throws ElementNotFound {
-		List<Car> result = new ArrayList<Car>();
-		for (Car car : this.listOfCars) {
-			if (car.getName().contains(name)) {
-				result.add(car);
-			}
-		}
-		if (result.size() == 0) {
-			throw new ElementNotFound("Car: getCarByRegNumber " + name
-					+ " - element not found");
-		} else {
-			return result;
-		}
-	}
-
-	/**
-	 * Tries to find a car by it's registration number. If not found throws
-	 * ElementNotFound
-	 * 
-	 * @since 1.0.1 24/10/2011
-	 * @param regNumber
-	 *            a registration number to find
-	 * @return a Car Object
-	 * @throws ElementNotFound
-	 */
-	public Car getCarByRegistrationNumber(String regNumber) throws ElementNotFound {
-		for (Car car : this.listOfCars) {
-			if (car.getRegNumber().contentEquals(regNumber)) {
-				return car;
-			}
-		}
-		throw new ElementNotFound("Car: getCarByRegNumber " + regNumber
-				+ " - element not found");
-	}
-
-	/**
-	 * Returns a Car object for a User with a userId
-	 * 
-	 * @param userId
-	 * @return
-	 * @throws ElementNotFound
-	 */
-	public Car getCarForUser(Integer userId) throws ElementNotFound {
-		for (Car car : this.listOfCars) {
-			if (car.getAcctualDriverId() == userId) {
-				return car;
-			}
-		}
-		throw new ElementNotFound("Car: getCarForUser " + userId
-				+ " - element not found");
-	}
-
 	/**
 	 * Returns a inside representation.
 	 * 

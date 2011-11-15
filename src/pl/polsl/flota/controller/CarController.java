@@ -109,10 +109,10 @@ public class CarController {
 		Car foundCar;
 
 		try {
-			foundCar = carList.getCarByRegistrationNumber(userTydpedIn);
+			foundCar = getCarByRegistrationNumber(userTydpedIn);
 		} catch (ElementNotFound e) {
 			try {
-				foundCar = carList.getCarByName(userTydpedIn).get(0);
+				foundCar = getCarByName(userTydpedIn).get(0);
 			} catch (ElementNotFound e2) {
 				throw new ElementNotFound(
 						"CarController: Cant find any car that match criteria.");
@@ -156,7 +156,7 @@ public class CarController {
 	 */
 	public void editCar(String regNumber, String userCarName,
 			String userDistance, String userConsumpiton) throws ElementNotFound {
-		Car carToEdit = carList.getCarByRegistrationNumber(regNumber);
+		Car carToEdit = getCarByRegistrationNumber(regNumber);
 
 		if (!userCarName.startsWith("-")) {
 			carToEdit.setName(userCarName);
@@ -194,7 +194,7 @@ public class CarController {
 	public void deleteCar(String string) {
 		Car car = null;
 		try {
-			car = carList.getCarByRegistrationNumber(string);
+			car = getCarByRegistrationNumber(string);
 		} catch (ElementNotFound e) {
 			System.out.println("CarController: deleteCar car not found");
 		}
@@ -215,7 +215,7 @@ public class CarController {
 				car.setAcctualDriverId(null);
 			}
 		}
-		Car foundCar = carList.getCarByRegistrationNumber(carRegNumber);
+		Car foundCar = getCarByRegistrationNumber(carRegNumber);
 		foundCar.setAcctualDriverId(userId);
 	}
 
@@ -241,10 +241,76 @@ public class CarController {
 		} catch (NumberFormatException e) {
 			throw new NumberFormatException();
 		}
-		Car foundCar = carList.getCarForUser(userId);
+		Car foundCar = getCarForUser(userId);
 		foundCar.addRefuel(new Refuel(distanceInt, amountFloat, valueFloat,
 				new Date()));
 
+	}
+	
+	//New methods from Model -> starts here
+	
+	//TODO: Here ends the car model rest of the methods should go to Car Controller!
+
+	/**
+	 * Tries to find cars which have in the name a name parm. If don't found
+	 * anything throws ElementNotFound
+	 * 
+	 * @since 1.0.1 24/10/2011
+	 * @param name
+	 *            to find
+	 * @return A list of cars
+	 * @throws ElementNotFound
+	 */
+	public List<Car> getCarByName(String name) throws ElementNotFound {
+		List<Car> result = new ArrayList<Car>();
+		for (Car car : carList.getListOfCars()) {
+			if (car.getName().contains(name)) {
+				result.add(car);
+			}
+		}
+		if (result.size() == 0) {
+			throw new ElementNotFound("Car: getCarByRegNumber " + name
+					+ " - element not found");
+		} else {
+			return result;
+		}
+	}
+
+	/**
+	 * Tries to find a car by it's registration number. If not found throws
+	 * ElementNotFound
+	 * 
+	 * @since 1.0.1 24/10/2011
+	 * @param regNumber
+	 *            a registration number to find
+	 * @return a Car Object
+	 * @throws ElementNotFound
+	 */
+	public Car getCarByRegistrationNumber(String regNumber) throws ElementNotFound {
+		for (Car car : carList.getListOfCars()) {
+			if (car.getRegNumber().contentEquals(regNumber)) {
+				return car;
+			}
+		}
+		throw new ElementNotFound("Car: getCarByRegNumber " + regNumber
+				+ " - element not found");
+	}
+
+	/**
+	 * Returns a Car object for a User with a userId
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws ElementNotFound
+	 */
+	public Car getCarForUser(Integer userId) throws ElementNotFound {
+		for (Car car : carList.getListOfCars()) {
+			if (car.getAcctualDriverId() == userId) {
+				return car;
+			}
+		}
+		throw new ElementNotFound("Car: getCarForUser " + userId
+				+ " - element not found");
 	}
 
 }
