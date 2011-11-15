@@ -5,9 +5,14 @@ package pl.polsl.flota.view;
 
 //TODO: Dodac komentarze na poczatku klas. 
 //TODO: Zmienic kolejnosc pierwsze opis potem autor.
-//TODO: Przesunac zeczy wyszukujace auta z modelu do kontrolera.
 //TODO: Tworzenie samochodow nie za pomoca konstruktora tylko budowniczgo - przyklad zakomentiwany.
 //TODO: Usunac zbedne entery przed klamrami.
+//- zdefiniowanie i wykorzystanie typu wyliczeniowego, 
+//- wykorzystanie adnotacji. 
+//Testy jednostkowe dla klas modelu 
+//- testy zbiorcze. 
+//Uwaga: klasy modelu nie mogą zawierać składników statycznych. 
+//Powinny za to sytuacje nietypowe sygnalizować zgłaszaniem wyjątków. 
 
 //FIXME: IMPLEMNETACJA r3 do 18/11/2011 ;)
 import java.io.IOException;
@@ -17,6 +22,7 @@ import java.util.Scanner;
 
 import pl.polsl.flota.exceptions.ElementAlredyExists;
 import pl.polsl.flota.exceptions.ElementNotFound;
+import pl.polsl.flota.exceptions.MenuItemNotFound;
 import pl.polsl.flota.helpers.*;
 
 /**
@@ -31,15 +37,7 @@ public final class MainWindow {
 	AdminView adminView;
 	DriverView driverView;
 	Integer currentUserId;
-
-	static final int AM_DODAJ_POJAZD = 1;
-	static final int AM_PRZEGLADAJ_POJAZDY = 2;
-	static final int AM_EDYTUJ_POJAZD = 3;
-	static final int AM_USUN_POJAZD = 4;
-	static final int AM_KIEROWCA = 5;
-	static final int AM_WYLOGUJ = 6;
-	static final int AM_WYJŚCIE = 7;
-
+	
 	static final int AD_DODAJ_KIEROWCE = 1;
 	static final int AD_PRZEGLADAJ_KIEROWCOW = 2;
 	static final int AD_ZMIEN_HASLO = 3;
@@ -57,14 +55,21 @@ public final class MainWindow {
 	 */
 	public MainWindow() {
 		// Values of menu for level 1 of the Application
-		menuAdminMain.add("	1) Dodaj pojazd.");
-		menuAdminMain.add("	2) Przeglądaj pojazdy.");
-		menuAdminMain.add("	3) Edytuj/Przeglądaj pojazd.");
-		menuAdminMain.add("	4) Usuń pojazd.");
-		menuAdminMain.add("	5) Kierowca.");
-		menuAdminMain.add("	6) Wyloguj.");
-		menuAdminMain.add("	7) Wyjście z programu.");
-
+//		menuAdminMain.add("	1) Dodaj pojazd.");
+//		menuAdminMain.add("	2) Przeglądaj pojazdy.");
+//		menuAdminMain.add("	3) Edytuj/Przeglądaj pojazd.");
+//		menuAdminMain.add("	4) Usuń pojazd.");
+//		menuAdminMain.add("	5) Kierowca.");
+//		menuAdminMain.add("	6) Wyloguj.");
+//		menuAdminMain.add("	7) Wyjście z programu.");
+/*		menuAdminMain.add(AdminMenu.AM_DODAJ_POJAZD.toString());
+		menuAdminMain.add(AdminMenu.AM_PRZEGLADAJ_POJAZDY.toString());
+		menuAdminMain.add(AdminMenu.AM_EDYTUJ_POJAZD.toString());
+		menuAdminMain.add(AdminMenu.AM_USUN_POJAZD.toString());
+		menuAdminMain.add(AdminMenu.AM_KIEROWCA.toString());
+		menuAdminMain.add(AdminMenu.AM_WYLOGUJ.toString());
+		menuAdminMain.add(AdminMenu.AM_WYJSCIE.toString());
+*/
 		// This is menu for admin - "kierowca"
 		menuAdminDriver.add(" 1) Dodaj kierowcę.");
 		menuAdminDriver.add(" 2) Przeglądaj kierowców.");
@@ -158,9 +163,16 @@ public final class MainWindow {
 	 * @param mywindow
 	 */
 	private static void mainMenuAdmin(MainWindow mywindow) {
-		Integer retVal = Helpers.menuToOptionId(mywindow.menuAdminMain);
+		//Integer retVal = Helpers.menuToOptionId(mywindow.menuAdminMain);
+		AdminMenu retVal = null;
+		try {
+		retVal = Helpers.presentAdminMenuAndGetValue(/*mywindow.menuAdminMain*/);
+		} catch (MenuItemNotFound e) {
+			System.out.println("Podano nieprawidłową wartość. Podaj ponownie.");
+			mainMenuAdmin(null);
+		}
 		switch (retVal) {
-		case AM_DODAJ_POJAZD: {
+		case AM_DODAJ_POJAZD : {
 			try {
 				mywindow.adminView.addCar();
 			} catch (ElementAlredyExists e) {
@@ -168,7 +180,7 @@ public final class MainWindow {
 			}
 			break;
 		}
-		case AM_PRZEGLADAJ_POJAZDY: {
+		case  AM_PRZEGLADAJ_POJAZDY: {
 			mywindow.adminView.listCars();
 			break;
 		}
@@ -191,7 +203,7 @@ public final class MainWindow {
 			}
 			break;
 		}
-		case AM_KIEROWCA: {
+		case AM_KIEROWCA : {
 			Helpers.clearScren();
 			mainMenuAdminDriver(mywindow);
 			break;
@@ -201,7 +213,7 @@ public final class MainWindow {
 			mywindow.adminView.save();
 			break;
 		}
-		case AM_WYJŚCIE: {
+		case AM_WYJSCIE : {
 			mywindow.adminView.save();
 			System.exit(0);
 		}
@@ -214,7 +226,8 @@ public final class MainWindow {
 	 * @param mywindow
 	 */
 	private static void mainMenuAdminDriver(MainWindow mywindow) {
-		Integer retVal = Helpers.menuToOptionId(mywindow.menuAdminDriver);
+		//Integer retVal = Helpers.menuToOptionId(mywindow.menuAdminDriver);
+		Integer retVal = 0;
 		switch (retVal) {
 		case AD_DODAJ_KIEROWCE: {
 			try {
@@ -258,7 +271,8 @@ public final class MainWindow {
 	 * @param mywindow
 	 */
 	private static void mainMenuDriver(MainWindow mywindow) {
-		Integer retVal = Helpers.menuToOptionId(mywindow.menuDriverLvl1);
+		//Integer retVal = Helpers.menuToOptionId(mywindow.menuDriverLvl1);
+		Integer retVal = 0;
 		switch (retVal) {
 		case D_ZANOTUJ_TANKOWANIE: {
 			try {

@@ -3,8 +3,10 @@
  */
 package pl.polsl.flota.helpers;
 
-import java.util.List;
 import java.util.Scanner;
+
+import pl.polsl.flota.exceptions.MenuItemNotFound;
+import pl.polsl.flota.view.AdminMenu;
 
 /**
  * @author Marcin Jabrzyk
@@ -21,17 +23,41 @@ public final class Helpers {
 	 * @param menuItems
 	 *            Get list of string with formated menu items
 	 * @return i-th number of selected option
+	 * @throws MenuItemNotFound 
 	 */
-	public static int menuToOptionId(List<String> menuItems) {
-		Integer howManyItems = menuItems.size();
-		Integer returnValue = -1;
-		Boolean error = true;
-		for (String menuItem : menuItems) {
-			System.out.println(menuItem);
+	public static AdminMenu presentAdminMenuAndGetValue(/*List<String> menuItems*/) throws MenuItemNotFound {
+//		Integer howManyItems = menuItems.size();
+//		for (String menuItem : menuItems) {
+//			System.out.println(menuItem);
+//		}
+		
+		Integer counter = 0;
+		for (AdminMenu adminMenuElement : AdminMenu.values()){
+			counter++;
+			System.out.println(adminMenuElement);
 		}
 
+		Integer userAnswered = getAnswerFromUser(counter);
+		
+		for (AdminMenu enumVal : AdminMenu.values()){
+			if (userAnswered == enumVal.value()){
+				return enumVal;
+			}
+		}
+		
+		throw new MenuItemNotFound("Menu option not exist for value :"+userAnswered);
+
+	}
+
+	/**
+	 * @param howManyItems
+	 * @return
+	 */
+	private static Integer getAnswerFromUser(Integer howManyItems) {
 		Scanner scanner = new Scanner(System.in);
 
+		Integer returnValue = -1;
+		Boolean error = true;
 		while (error != false) {
 
 			try {
@@ -50,9 +76,7 @@ public final class Helpers {
 			}
 
 		}
-
 		return returnValue;
-
 	}
 
 	/**

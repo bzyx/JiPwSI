@@ -129,7 +129,7 @@ public class AdminView {
 			String userCarName = scanner.nextLine();
 			System.out.println("Podaj nowy przebieg pojazdu ["
 					+ carParams.get(2)
-					+ "] lub wciśnij Enter- aby pozostawić ?");
+					+ "] lub wciśnij Enter aby pozostawić ?");
 			String userDistance = scanner.nextLine();
 			System.out.println("Podaj średnie spalanie: [" + carParams.get(3)
 					+ "] lub wciśnij Enter aby pozostawić ?");
