@@ -7,17 +7,13 @@ package pl.polsl.flota.view;
 //TODO: Zmienic kolejnosc pierwsze opis potem autor.
 //TODO: Tworzenie samochodow nie za pomoca konstruktora tylko budowniczgo - przyklad zakomentiwany.
 //TODO: Usunac zbedne entery przed klamrami.
-//- zdefiniowanie i wykorzystanie typu wyliczeniowego, 
-//- wykorzystanie adnotacji. 
+//FIXME: !!!!!!!!!COŚ NIE TAK Z ZAPISEM PO USUNIĘCIU TYCH STATIC Z LIST W MODELU -AAAAAA! Singleton?
 //Testy jednostkowe dla klas modelu 
 //- testy zbiorcze. 
 //Uwaga: klasy modelu nie mogą zawierać składników statycznych. 
-//Powinny za to sytuacje nietypowe sygnalizować zgłaszaniem wyjątków. 
 
 //FIXME: IMPLEMNETACJA r3 do 18/11/2011 ;)
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import pl.polsl.flota.exceptions.ElementAlredyExists;
@@ -31,9 +27,6 @@ import pl.polsl.flota.helpers.*;
  * @author Marcin Jabrzyk
  */
 public final class MainWindow {
-	List<String> menuAdminMain = new ArrayList<String>();
-	List<String> menuAdminDriver = new ArrayList<String>();
-	List<String> menuDriverLvl1 = new ArrayList<String>();
 	AdminView adminView;
 	DriverView driverView;
 	Integer currentUserId;
