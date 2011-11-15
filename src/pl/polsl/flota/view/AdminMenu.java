@@ -21,7 +21,6 @@ public enum AdminMenu implements IMenuEnum {
 
 	/**
 	 * Constructor of this enum.
-	 * 
 	 */
 	AdminMenu(int val, String desc) {
 		value = val;
@@ -32,6 +31,7 @@ public enum AdminMenu implements IMenuEnum {
 	 * Returns the number value of the current item.
 	 * @return int Intger value of current item.
 	 */
+	@Override
 	public int value() {
 		return value;
 	}

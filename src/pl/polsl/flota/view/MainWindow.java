@@ -38,11 +38,6 @@ public final class MainWindow {
 	DriverView driverView;
 	Integer currentUserId;
 	
-	static final int AD_DODAJ_KIEROWCE = 1;
-	static final int AD_PRZEGLADAJ_KIEROWCOW = 2;
-	static final int AD_ZMIEN_HASLO = 3;
-	static final int AD_USUN_KIEROWCE = 4;
-	static final int AD_COFNIJ_DO_MENU = 5;
 
 	static final int D_ZANOTUJ_TANKOWANIE = 1;
 	static final int D_ZMIEN_POJAZD = 2;
@@ -54,22 +49,6 @@ public final class MainWindow {
 	 * whole Application.
 	 */
 	public MainWindow() {
-		// Values of menu for level 1 of the Application
-//		menuAdminMain.add("	1) Dodaj pojazd.");
-//		menuAdminMain.add("	2) Przeglądaj pojazdy.");
-//		menuAdminMain.add("	3) Edytuj/Przeglądaj pojazd.");
-//		menuAdminMain.add("	4) Usuń pojazd.");
-//		menuAdminMain.add("	5) Kierowca.");
-//		menuAdminMain.add("	6) Wyloguj.");
-//		menuAdminMain.add("	7) Wyjście z programu.");
-/*		menuAdminMain.add(AdminMenu.AM_DODAJ_POJAZD.toString());
-		menuAdminMain.add(AdminMenu.AM_PRZEGLADAJ_POJAZDY.toString());
-		menuAdminMain.add(AdminMenu.AM_EDYTUJ_POJAZD.toString());
-		menuAdminMain.add(AdminMenu.AM_USUN_POJAZD.toString());
-		menuAdminMain.add(AdminMenu.AM_KIEROWCA.toString());
-		menuAdminMain.add(AdminMenu.AM_WYLOGUJ.toString());
-		menuAdminMain.add(AdminMenu.AM_WYJSCIE.toString());
-*/
 		// This is menu for admin - "kierowca"
 		menuAdminDriver.add(" 1) Dodaj kierowcę.");
 		menuAdminDriver.add(" 2) Przeglądaj kierowców.");
@@ -163,13 +142,12 @@ public final class MainWindow {
 	 * @param mywindow
 	 */
 	private static void mainMenuAdmin(MainWindow mywindow) {
-		//Integer retVal = Helpers.menuToOptionId(mywindow.menuAdminMain);
 		AdminMenu retVal = null;
 		try {
-		retVal = Helpers.presentAdminMenuAndGetValue(/*mywindow.menuAdminMain*/);
+		retVal = Helpers.presentAdminMenuAndGetValue();
 		} catch (MenuItemNotFound e) {
 			System.out.println("Podano nieprawidłową wartość. Podaj ponownie.");
-			mainMenuAdmin(null);
+			mainMenuAdmin(mywindow);
 		}
 		switch (retVal) {
 		case AM_DODAJ_POJAZD : {
@@ -226,8 +204,13 @@ public final class MainWindow {
 	 * @param mywindow
 	 */
 	private static void mainMenuAdminDriver(MainWindow mywindow) {
-		//Integer retVal = Helpers.menuToOptionId(mywindow.menuAdminDriver);
-		Integer retVal = 0;
+		AdminDriverMenu retVal = null;
+		try {
+		retVal = Helpers.presentAdminDriverMenuAndGetValue();
+		} catch (MenuItemNotFound e) {
+			System.out.println("Podano nieprawidłową wartość. Podaj ponownie.");
+			mainMenuAdminDriver(mywindow);
+		}
 		switch (retVal) {
 		case AD_DODAJ_KIEROWCE: {
 			try {

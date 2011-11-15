@@ -1,4 +1,4 @@
-/**
+/** 
  * A file with some Helpers used in application. With helps doing things.
  */
 package pl.polsl.flota.helpers;
@@ -6,6 +6,7 @@ package pl.polsl.flota.helpers;
 import java.util.Scanner;
 
 import pl.polsl.flota.exceptions.MenuItemNotFound;
+import pl.polsl.flota.view.AdminDriverMenu;
 import pl.polsl.flota.view.AdminMenu;
 
 /**
@@ -32,6 +33,33 @@ public final class Helpers {
 		Integer userAnswered = getAnswerFromUser(counter);
 		
 		for (AdminMenu enumVal : AdminMenu.values()){
+			if (userAnswered == enumVal.value()){
+				return enumVal;
+			}
+		}
+		
+		throw new MenuItemNotFound("Menu option not exist for value :"+userAnswered);
+
+	}
+	
+	/**
+	 * Preset to Admin-user a list of options of secondary level menu Driver.
+	 * Gets the input from user. And returns this value as
+	 * AdminDriverMenu enum value.
+	 * 
+	 * @return enum value with the chosen menu option.
+	 * @throws MenuItemNotFound 
+	 */
+	public static AdminDriverMenu presentAdminDriverMenuAndGetValue() throws MenuItemNotFound {
+		Integer counter = 0;
+		for (AdminDriverMenu adminDriverMenuElement : AdminDriverMenu.values()){
+			counter++;
+			System.out.println(adminDriverMenuElement);
+		}
+		
+		Integer userAnswered = getAnswerFromUser(counter);
+		
+		for (AdminDriverMenu enumVal : AdminDriverMenu.values()){
 			if (userAnswered == enumVal.value()){
 				return enumVal;
 			}
