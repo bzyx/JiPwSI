@@ -8,6 +8,7 @@ import java.util.Scanner;
 import pl.polsl.flota.exceptions.MenuItemNotFound;
 import pl.polsl.flota.view.AdminDriverMenu;
 import pl.polsl.flota.view.AdminMenu;
+import pl.polsl.flota.view.DriverMenu;
 
 /**
  * Class with common functions which should not be in M,V or C.
@@ -68,7 +69,34 @@ public final class Helpers {
 		throw new MenuItemNotFound("Menu option not exist for value :"+userAnswered);
 
 	}
+	
+	/**
+	 * Preset to Driver-user a list of options to that user.
+	 * Gets the input from user. And returns this value as
+	 * DriverMenu enum value.
+	 * 
+	 * @return enum value with the chosen menu option.
+	 * @throws MenuItemNotFound 
+	 */
+	public static DriverMenu presentDriverMenuAndGetValue() throws MenuItemNotFound {
+		Integer counter = 0;
+		for (DriverMenu driverMenuElement : DriverMenu.values()){
+			counter++;
+			System.out.println(driverMenuElement);
+		}
+		
+		Integer userAnswered = getAnswerFromUser(counter);
+		
+		for (DriverMenu enumVal : DriverMenu.values()){
+			if (userAnswered == enumVal.value()){
+				return enumVal;
+			}
+		}
+		
+		throw new MenuItemNotFound("Menu option not exist for value :"+userAnswered);
 
+	}
+	
 	/**
 	 * Gets the input from user. If user type an invalid value, 
 	 * gets the input until user provide a valid one.

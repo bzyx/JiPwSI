@@ -37,32 +37,12 @@ public final class MainWindow {
 	AdminView adminView;
 	DriverView driverView;
 	Integer currentUserId;
-	
-
-	static final int D_ZANOTUJ_TANKOWANIE = 1;
-	static final int D_ZMIEN_POJAZD = 2;
-	static final int D_WYLOGUJ = 3;
-	static final int D_WYJSCIE = 4;
-
 	/**
 	 * Default constructor which initializes some values which are global for
 	 * whole Application.
 	 */
 	public MainWindow() {
-		// This is menu for admin - "kierowca"
-		menuAdminDriver.add(" 1) Dodaj kierowcę.");
-		menuAdminDriver.add(" 2) Przeglądaj kierowców.");
-		menuAdminDriver.add(" 3) Zmień hasło.");
-		menuAdminDriver.add(" 4) Usuń kierowcę.");
-		menuAdminDriver.add(" 5) Cofnij do menu głównego");
-
-		// This menu is for the car driver
-		menuDriverLvl1.add("	1) Zanotuj tankowanie.");
-		menuDriverLvl1.add("	2) Zmień pojazd.");
-		menuDriverLvl1.add("	3) Wyloguj.");
-		menuDriverLvl1.add("	4) Wyjście.");
-
-		currentUserId = -2;
+		currentUserId = -2; //An non-valid user id.
 
 		adminView = new AdminView();
 		driverView = new DriverView();
@@ -187,8 +167,8 @@ public final class MainWindow {
 			break;
 		}
 		case AM_WYLOGUJ: {
-			mywindow.currentUserId = -2;
 			mywindow.adminView.save();
+			mywindow.currentUserId = -2;
 			break;
 		}
 		case AM_WYJSCIE : {
@@ -255,7 +235,13 @@ public final class MainWindow {
 	 */
 	private static void mainMenuDriver(MainWindow mywindow) {
 		//Integer retVal = Helpers.menuToOptionId(mywindow.menuDriverLvl1);
-		Integer retVal = 0;
+		DriverMenu retVal = null;
+		try {
+		retVal = Helpers.presentDriverMenuAndGetValue();
+		} catch (MenuItemNotFound e) {
+			System.out.println("Podano nieprawidłową wartość. Podaj ponownie.");
+			mainMenuDriver(mywindow);
+		}
 		switch (retVal) {
 		case D_ZANOTUJ_TANKOWANIE: {
 			try {
@@ -280,8 +266,8 @@ public final class MainWindow {
 			break;
 		}
 		case D_WYLOGUJ: {
-			mywindow.currentUserId = -2;
 			mywindow.driverView.save();
+			mywindow.currentUserId = -2;
 			break;
 		}
 		case D_WYJSCIE: {
