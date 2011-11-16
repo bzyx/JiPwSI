@@ -83,6 +83,9 @@ public class AdminView {
 		String userTypedIn = scanner.nextLine();
 
 		List<String> carParams = null;
+		if (userTypedIn.isEmpty()){
+			throw new ElementNotFound("AdminView: User typed an empty value.");
+		}
 		carParams = carController.findCar(userTypedIn);
 		System.out.println("Czy usunąć samochód [" + carParams.get(1)
 				+ "] nr rej. [" + carParams.get(0) + "] [T/N]");

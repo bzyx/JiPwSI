@@ -18,7 +18,9 @@ import pl.polsl.flota.model.UserList;
  */
 public class UserController {
 
-	UserList userList;
+	/** A simple but not so beautiful hack to be sure 
+	 * that we have only one list (one model instance). */
+	static UserList userList = null;
 
 	/**
 	 * Constructor of UserController
@@ -28,7 +30,10 @@ public class UserController {
 	 */
 	public UserController(String fileName) throws IOException {
 		super();
-		userList = new UserList();
+		if (userList == null){
+			userList = new UserList();
+		}
+		
 		if (userList.getListOfUsers().isEmpty()) {
 			userList.load(fileName);
 		}

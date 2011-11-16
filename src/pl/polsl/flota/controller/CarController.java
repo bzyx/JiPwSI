@@ -14,14 +14,18 @@ import pl.polsl.flota.model.Car;
 import pl.polsl.flota.model.CarList;
 import pl.polsl.flota.model.Refuel;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class CarController.
+ *
  * @author Marcin Jabrzyk
- * 
- * 
  */
 public class CarController {
 
-	CarList carList;
+	
+	/** A simple but not so beautiful hack to be sure 
+	 * that we have only one list (one model instance). */
+	static CarList carList = null;
 
 	/**
 	 * Main CarController which load and initializes the file.
@@ -33,7 +37,10 @@ public class CarController {
 	 */
 	public CarController(String fileName) throws IOException {
 		super();
-		carList = new CarList();
+		if (carList == null){
+			carList = new CarList();
+		}
+		
 		if (carList.getListOfCars().isEmpty()) {
 			carList.load(fileName);
 		}
@@ -42,12 +49,12 @@ public class CarController {
 
 	/**
 	 * Adds the new Car. From view to model.
-	 * 
-	 * @param userRegNumber
-	 * @param userCarName
-	 * @param userDistanceInt
-	 * @param userConsumpitonFloat
-	 * @throws ElementAlredyExists
+	 *
+	 * @param userRegNumber the user reg number
+	 * @param userCarName the user car name
+	 * @param userDistanceInt the user distance int
+	 * @param userConsumpitonFloat the user consumpiton float
+	 * @throws ElementAlredyExists the element alredy exists
 	 */
 	public void addCar(String userRegNumber, String userCarName,
 			Integer userDistanceInt, Float userConsumpitonFloat)
@@ -98,11 +105,10 @@ public class CarController {
 
 	/**
 	 * Tries a find a Car with the provided Registration Number or Car name.
-	 * 
-	 * @param userTydpedIn
+	 *
+	 * @param userTydpedIn the user tydped in
 	 * @return A list of string like getCarStringList, but only for find Car.
-	 * @throws ElementNotFound
-	 *             if no element is found.
+	 * @throws ElementNotFound if no element is found.
 	 */
 	public List<String> findCar(String userTydpedIn) throws ElementNotFound {
 		List<String> returnList = new ArrayList<String>();
@@ -136,8 +142,8 @@ public class CarController {
 
 	/**
 	 * Saves the file. Calls the method from controller.
-	 * 
-	 * @param fileName
+	 *
+	 * @param fileName the file name
 	 */
 	public void save(String fileName) {
 		carList.save(fileName);
@@ -147,12 +153,12 @@ public class CarController {
 	/**
 	 * Edits the Car with the parameters get from View. Finds the Car by
 	 * Registration Number.
-	 * 
-	 * @param regNumber
-	 * @param userCarName
-	 * @param userDistance
-	 * @param userConsumpiton
-	 * @throws ElementNotFound
+	 *
+	 * @param regNumber the reg number
+	 * @param userCarName the user car name
+	 * @param userDistance the user distance
+	 * @param userConsumpiton the user consumpiton
+	 * @throws ElementNotFound the element not found
 	 */
 	public void editCar(String regNumber, String userCarName,
 			String userDistance, String userConsumpiton) throws ElementNotFound {
@@ -188,8 +194,8 @@ public class CarController {
 
 	/**
 	 * Deletes a Car find by Registration Number.
-	 * 
-	 * @param string
+	 *
+	 * @param string the string
 	 */
 	public void deleteCar(String string) {
 		Car car = null;
@@ -202,32 +208,42 @@ public class CarController {
 	}
 
 	/**
-	 * Tries to connect the Car with the carRegNumber to User with userId
-	 * 
-	 * @param userId
-	 * @param carRegNumber
-	 * @throws ElementNotFound
+	 * Tries to connect the Car with the carRegNumber to User with userId.
+	 *
+	 * @param userId the user id
+	 * @param carRegNumber the car reg number
+	 * @throws ElementNotFound the element not found
 	 */
 	public void conntectUserToCar(Integer userId, String carRegNumber)
 			throws ElementNotFound {
+		
+		Car foundCar;
+		try {
+			foundCar = getCarByRegistrationNumber(carRegNumber);
+		} catch (ElementNotFound e) {
+			throw new ElementNotFound("CarController: getCarByRegistrationNumber car not found.");
+		}
+		
+		//We set a driver to null to all cars thats this user drives. 
 		for (Car car : carList.getListOfCars()) {
 			if (car.getAcctualDriverId() == userId) {
 				car.setAcctualDriverId(null);
 			}
 		}
-		Car foundCar = getCarByRegistrationNumber(carRegNumber);
+		
+		//Finally we connect the car to user.
 		foundCar.setAcctualDriverId(userId);
 	}
 
 	/**
-	 * Tries to ad a refuel to a Car connected to a User with userId
-	 * 
-	 * @param userId
-	 * @param distance
-	 * @param amount
-	 * @param value
-	 * @throws ElementNotFound
-	 * @throws NumberFormatException
+	 * Tries to ad a refuel to a Car connected to a User with userId.
+	 *
+	 * @param userId the user id
+	 * @param distance the distance
+	 * @param amount the amount
+	 * @param value the value
+	 * @throws ElementNotFound the element not found
+	 * @throws NumberFormatException the number format exception
 	 */
 	public void refuel(Integer userId, String distance, String amount,
 			String value) throws ElementNotFound, NumberFormatException {
@@ -254,12 +270,11 @@ public class CarController {
 	/**
 	 * Tries to find cars which have in the name a name parm. If don't found
 	 * anything throws ElementNotFound
-	 * 
-	 * @since 1.0.1 24/10/2011
-	 * @param name
-	 *            to find
+	 *
+	 * @param name to find
 	 * @return A list of cars
-	 * @throws ElementNotFound
+	 * @throws ElementNotFound the element not found
+	 * @since 1.0.1 24/10/2011
 	 */
 	public List<Car> getCarByName(String name) throws ElementNotFound {
 		List<Car> result = new ArrayList<Car>();
@@ -279,12 +294,11 @@ public class CarController {
 	/**
 	 * Tries to find a car by it's registration number. If not found throws
 	 * ElementNotFound
-	 * 
-	 * @since 1.0.1 24/10/2011
-	 * @param regNumber
-	 *            a registration number to find
+	 *
+	 * @param regNumber a registration number to find
 	 * @return a Car Object
-	 * @throws ElementNotFound
+	 * @throws ElementNotFound the element not found
+	 * @since 1.0.1 24/10/2011
 	 */
 	public Car getCarByRegistrationNumber(String regNumber) throws ElementNotFound {
 		for (Car car : carList.getListOfCars()) {
@@ -297,11 +311,11 @@ public class CarController {
 	}
 
 	/**
-	 * Returns a Car object for a User with a userId
-	 * 
-	 * @param userId
-	 * @return
-	 * @throws ElementNotFound
+	 * Returns a Car object for a User with a userId.
+	 *
+	 * @param userId the user id
+	 * @return the car for user
+	 * @throws ElementNotFound the element not found
 	 */
 	public Car getCarForUser(Integer userId) throws ElementNotFound {
 		for (Car car : carList.getListOfCars()) {

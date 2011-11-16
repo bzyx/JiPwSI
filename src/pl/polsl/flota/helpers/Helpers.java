@@ -10,6 +10,7 @@ import pl.polsl.flota.view.AdminDriverMenu;
 import pl.polsl.flota.view.AdminMenu;
 import pl.polsl.flota.view.DriverMenu;
 
+
 /**
  * Class with common functions which should not be in M,V or C.
  * 
@@ -20,9 +21,9 @@ public final class Helpers {
 	 * Preset to Admin-user a list of options of menu.
 	 * Gets the input from user. And returns this value as
 	 * AdminMenu enum value.
-	 * 
+	 *
 	 * @return enum value with the chosen menu option.
-	 * @throws MenuItemNotFound 
+	 * @throws MenuItemNotFound the menu item not found
 	 */
 	public static AdminMenu presentAdminMenuAndGetValue() throws MenuItemNotFound {
 		Integer counter = 0;
@@ -47,9 +48,9 @@ public final class Helpers {
 	 * Preset to Admin-user a list of options of secondary level menu Driver.
 	 * Gets the input from user. And returns this value as
 	 * AdminDriverMenu enum value.
-	 * 
+	 *
 	 * @return enum value with the chosen menu option.
-	 * @throws MenuItemNotFound 
+	 * @throws MenuItemNotFound the menu item not found
 	 */
 	public static AdminDriverMenu presentAdminDriverMenuAndGetValue() throws MenuItemNotFound {
 		Integer counter = 0;
@@ -74,9 +75,9 @@ public final class Helpers {
 	 * Preset to Driver-user a list of options to that user.
 	 * Gets the input from user. And returns this value as
 	 * DriverMenu enum value.
-	 * 
+	 *
 	 * @return enum value with the chosen menu option.
-	 * @throws MenuItemNotFound 
+	 * @throws MenuItemNotFound the menu item not found
 	 */
 	public static DriverMenu presentDriverMenuAndGetValue() throws MenuItemNotFound {
 		Integer counter = 0;
