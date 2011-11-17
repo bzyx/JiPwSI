@@ -50,11 +50,13 @@ public class CarList {
 	 * @throws ElementAlredyExists
 	 */
 	public void addItem(Car car) throws ElementAlredyExists {
-		for (Car car_ : this.listOfCars) {
-			if (car_.equals(car)
-					|| car_.getRegNumber().contentEquals(car.getRegNumber())) {
-				throw new ElementAlredyExists(
-						"Car: addItem - element already exists");
+		if (listOfCars.size()>0) {
+			for (Car car_ : this.listOfCars) {
+				if (car_.equals(car)
+						|| car_.getRegNumber().contentEquals(car.getRegNumber())) {
+					throw new ElementAlredyExists(
+							"Car: addItem - element already exists");
+				}
 			}
 		}
 		listOfCars.add(car);

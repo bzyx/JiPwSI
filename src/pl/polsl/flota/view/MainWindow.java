@@ -5,12 +5,9 @@ package pl.polsl.flota.view;
 
 //TODO: Dodac komentarze na poczatku klas. 
 //TODO: Zmienic kolejnosc pierwsze opis potem autor.
-//TODO: Tworzenie samochodow nie za pomoca konstruktora tylko budowniczgo - przyklad zakomentiwany.
 //TODO: Usunac zbedne entery przed klamrami.
-//FIXME: !!!!!!!!!COŚ NIE TAK Z ZAPISEM PO USUNIĘCIU TYCH STATIC Z LIST W MODELU -AAAAAA! Singleton?
 //Testy jednostkowe dla klas modelu 
 //- testy zbiorcze. 
-//Uwaga: klasy modelu nie mogą zawierać składników statycznych. 
 
 //FIXME: IMPLEMNETACJA r3 do 18/11/2011 ;)
 import java.io.IOException;
@@ -20,6 +17,9 @@ import pl.polsl.flota.exceptions.ElementAlredyExists;
 import pl.polsl.flota.exceptions.ElementNotFound;
 import pl.polsl.flota.exceptions.MenuItemNotFound;
 import pl.polsl.flota.helpers.*;
+import pl.polsl.flota.view.MenuEnums.AdminDriverMenu;
+import pl.polsl.flota.view.MenuEnums.AdminMenu;
+import pl.polsl.flota.view.MenuEnums.DriverMenu;
 
 /**
  * This is the main class of the application instance.

@@ -14,7 +14,6 @@ import pl.polsl.flota.model.Car;
 import pl.polsl.flota.model.CarList;
 import pl.polsl.flota.model.Refuel;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CarController.
  * 
@@ -293,9 +292,6 @@ public class CarController {
 	}
 
 	// New methods from Model -> starts here
-
-	// TODO: Here ends the car model rest of the methods should go to Car
-	// Controller!
 
 	/**
 	 * Tries to find cars which have in the name a name parm. If don't found
