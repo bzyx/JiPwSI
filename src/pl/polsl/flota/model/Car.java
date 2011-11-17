@@ -40,15 +40,52 @@ public class Car {
 	 * @param avgConsumpion
 	 * @since 1.0.1 24/10/2011
 	 */
-	public Car(String regNumber, String name, Integer distance,
-			Float avgConsumpion) {
-		super();
-		this.regNumber = regNumber;
-		this.name = name;
-		this.distance = distance;
-		this.avgConsumpion = avgConsumpion;
+//	public Car(String regNumber, String name, Integer distance,
+//			Float avgConsumpion) {
+//		super();
+//		this.regNumber = regNumber;
+//		this.name = name;
+//		this.distance = distance;
+//		this.avgConsumpion = avgConsumpion;
+//		this.historyOfRefuel = new ArrayList<Refuel>();
+//	}
+	public static class CarBuilder {
+		// Required parameters
+		private final String regNumber;
+		private final String name;
+		
+		// Optional parameters
+		private Integer distance = null;
+		private Float avgConsumpion = null;
+		
+		public CarBuilder(String regestartionNumber, String name){
+			this.regNumber = regestartionNumber;
+			this.name = name;
+		}
+		
+		public CarBuilder distance(Integer distance){
+			this.distance = distance;
+			return this;
+		}
+		
+		public CarBuilder consumption(Float consumption){
+			this.avgConsumpion = consumption;
+			return this;
+		}
+		
+		public Car build() {
+			return new Car(this);
+		}
+	}
+	
+	Car(CarBuilder carBuilder){
+		this.regNumber = carBuilder.regNumber;
+		this.name = carBuilder.name;
+		this.distance = carBuilder.distance;
+		this.avgConsumpion = carBuilder.avgConsumpion;
 		this.historyOfRefuel = new ArrayList<Refuel>();
 	}
+	
 
 	/**
 	 * Adds a refuel to a current car.
