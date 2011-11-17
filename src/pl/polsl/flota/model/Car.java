@@ -6,6 +6,7 @@ package pl.polsl.flota.model;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * A model of Car in Flota.
  * 
@@ -14,11 +15,22 @@ import java.util.List;
  */
 public class Car {
 
+	/** The acctual driver id. */
 	Integer acctualDriverId;
+	
+	/** The avg consumpion. */
 	Float avgConsumpion;
+	
+	/** The distance. */
 	Integer distance;
+	
+	/** The history of refuel. */
 	List<Refuel> historyOfRefuel;
+	
+	/** The name. */
 	String name;
+	
+	/** The reg number. */
 	String regNumber;
 
 	/**
@@ -31,53 +43,74 @@ public class Car {
 		this.historyOfRefuel = new ArrayList<Refuel>();
 	}
 
+	
 	/**
-	 * Full constructor with all needed parameters.
-	 * 
-	 * @param regNumber
-	 * @param name
-	 * @param distance
-	 * @param avgConsumpion
-	 * @since 1.0.1 24/10/2011
+	 * The Class CarBuilder.
+	 * A Builder pattern class to simplyfy creating the objects.
 	 */
-//	public Car(String regNumber, String name, Integer distance,
-//			Float avgConsumpion) {
-//		super();
-//		this.regNumber = regNumber;
-//		this.name = name;
-//		this.distance = distance;
-//		this.avgConsumpion = avgConsumpion;
-//		this.historyOfRefuel = new ArrayList<Refuel>();
-//	}
 	public static class CarBuilder {
 		// Required parameters
+		/** The reg number. */
 		private final String regNumber;
+		
+		/** The name. */
 		private final String name;
 		
 		// Optional parameters
+		/** The distance. */
 		private Integer distance = null;
+		
+		/** The avg consumpion. */
 		private Float avgConsumpion = null;
 		
+		/**
+		 * Instantiates a new car builder.
+		 *
+		 * @param regestartionNumber the regestartion number
+		 * @param name the name
+		 */
 		public CarBuilder(String regestartionNumber, String name){
 			this.regNumber = regestartionNumber;
 			this.name = name;
 		}
 		
+		/**
+		 * Distance.
+		 *
+		 * @param distance the distance
+		 * @return the car builder
+		 */
 		public CarBuilder distance(Integer distance){
 			this.distance = distance;
 			return this;
 		}
 		
+		/**
+		 * Consumption.
+		 *
+		 * @param consumption the consumption
+		 * @return the car builder
+		 */
 		public CarBuilder consumption(Float consumption){
 			this.avgConsumpion = consumption;
 			return this;
 		}
 		
+		/**
+		 * Builds the.
+		 *
+		 * @return the car
+		 */
 		public Car build() {
 			return new Car(this);
 		}
 	}
 	
+	/**
+	 * Instantiates a new car.
+	 *
+	 * @param carBuilder the car builder
+	 */
 	Car(CarBuilder carBuilder){
 		this.regNumber = carBuilder.regNumber;
 		this.name = carBuilder.name;
@@ -89,8 +122,8 @@ public class Car {
 
 	/**
 	 * Adds a refuel to a current car.
-	 * 
-	 * @param refuel
+	 *
+	 * @param refuel the refuel
 	 * @since 1.0.1 24/10/2011
 	 */
 	public void addRefuel(Refuel refuel) {
@@ -98,6 +131,8 @@ public class Car {
 	}
 
 	/**
+	 * Gets the acctual driver id.
+	 *
 	 * @return the acctualDriverId
 	 * @since 1.0.1 24/10/2011
 	 */
@@ -106,6 +141,8 @@ public class Car {
 	}
 
 	/**
+	 * Gets the avg consumpion.
+	 *
 	 * @return the avgConsumpion
 	 * @since 1.0.1 24/10/2011
 	 */
@@ -114,6 +151,8 @@ public class Car {
 	}
 
 	/**
+	 * Gets the distance.
+	 *
 	 * @return the distance
 	 * @since 1.0.1 24/10/2011
 	 */
@@ -132,6 +171,8 @@ public class Car {
 	}
 
 	/**
+	 * Gets the name.
+	 *
 	 * @return the name
 	 * @since 1.0.1 24/10/2011
 	 */
@@ -140,6 +181,8 @@ public class Car {
 	}
 
 	/**
+	 * Gets the reg number.
+	 *
 	 * @return the reg_numer
 	 * @since 1.0.1 24/10/2011
 	 */
@@ -148,8 +191,9 @@ public class Car {
 	}
 
 	/**
-	 * @param acctualDriverId
-	 *            the acctualDriverId to set
+	 * Sets the acctual driver id.
+	 *
+	 * @param acctualDriverId the acctualDriverId to set
 	 * @since 1.0.1 24/10/2011
 	 */
 	public void setAcctualDriverId(Integer acctualDriverId) {
@@ -157,8 +201,9 @@ public class Car {
 	}
 
 	/**
-	 * @param avgConsumpion
-	 *            the avgConsumpion to set
+	 * Sets the avg consumpion.
+	 *
+	 * @param avgConsumpion the avgConsumpion to set
 	 * @since 1.0.1 24/10/2011
 	 */
 	public void setAvgConsumpion(Float avgConsumpion) {
@@ -166,8 +211,9 @@ public class Car {
 	}
 
 	/**
-	 * @param distance
-	 *            the distance to set
+	 * Sets the distance.
+	 *
+	 * @param distance the distance to set
 	 * @since 1.0.1 24/10/2011
 	 */
 	public void setDistance(Integer distance) {
@@ -186,8 +232,9 @@ public class Car {
 	}
 
 	/**
-	 * @param name
-	 *            the name to set
+	 * Sets the name.
+	 *
+	 * @param name the name to set
 	 * @since 1.0.1 24/10/2011
 	 */
 	public void setName(String name) {
@@ -195,8 +242,9 @@ public class Car {
 	}
 
 	/**
-	 * @param regNumber
-	 *            the reg_numer to set
+	 * Sets the reg number.
+	 *
+	 * @param regNumber the reg_numer to set
 	 * @since 1.0.1 24/10/2011
 	 */
 	public void setRegNumber(String regNumber) {
