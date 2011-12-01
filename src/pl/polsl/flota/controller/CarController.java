@@ -1,5 +1,5 @@
 /**
- * 
+ * This is file contains CarController class.
  */
 package pl.polsl.flota.controller;
 
@@ -64,8 +64,6 @@ public class CarController {
 	public void addCar(String userRegNumber, String userCarName,
 			Integer userDistanceInt, Float userConsumpitonFloat)
 			throws ElementAlredyExists {
-		// carList.addItem(new Car(userRegNumber, userCarName, userDistanceInt,
-		// userConsumpitonFloat));
 		Car car = new Car.CarBuilder(userRegNumber, userCarName)
 				.distance(userDistanceInt).consumption(userConsumpitonFloat)
 				.build();
@@ -79,8 +77,6 @@ public class CarController {
 	 * @return returns a list of string.
 	 */
 	public List<String> getCarStringList() {
-		// TODO: Values should be separated by a comma.
-		// TODO: Think about presenting the name of the Driver
 		List<String> returnList = new ArrayList<String>();
 		for (Car car : carList.getListOfCars()) {
 			Integer acctualDriverId;
@@ -101,8 +97,6 @@ public class CarController {
 	 * @return returns a list of string.
 	 */
 	public List<String> getCarWithNoDiverStringList() {
-		// TODO: Values should be separated by a comma.
-		// TODO: Think about presenting the name of the Driver
 		List<String> returnList = new ArrayList<String>();
 		for (Car car : carList.getListOfCars()) {
 			if (car.getAcctualDriverId() == null) {
@@ -140,7 +134,6 @@ public class CarController {
 		returnList.add(foundCar.getName());
 		returnList.add(foundCar.getDistance().toString());
 		returnList.add(foundCar.getAvgConsumpion().toString());
-		// returnList.add(foundCar.getAcctualDriverId().toString());
 
 		for (Refuel refuel : foundCar.getHistoryOfRefuel()) {
 			returnList.add(refuel.getDate().toString() + " "

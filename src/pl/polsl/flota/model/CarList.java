@@ -1,5 +1,5 @@
 /**
- * 
+ * A a class for a CarList model witch is a List of Cars.
  */
 package pl.polsl.flota.model;
 

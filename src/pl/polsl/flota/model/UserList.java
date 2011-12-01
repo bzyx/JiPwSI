@@ -1,5 +1,5 @@
 /**
- * 
+ * A model class of a list of Users.
  */
 package pl.polsl.flota.model;
 

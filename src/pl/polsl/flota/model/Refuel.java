@@ -1,5 +1,5 @@
 /**
- * 
+ * A Refuel model class. Witch is a inner object of Car model.
  */
 package pl.polsl.flota.model;
 

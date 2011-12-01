@@ -1,5 +1,5 @@
 /**
- * 
+ * An Admin View for user.
  */
 package pl.polsl.flota.view;
 

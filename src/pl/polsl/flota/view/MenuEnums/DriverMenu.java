@@ -9,10 +9,10 @@ package pl.polsl.flota.view.MenuEnums;
  *
  */
 public enum DriverMenu implements IMenuEnum {
-	D_ZANOTUJ_TANKOWANIE(1,"Zanotuj tankowanie."),
-	D_ZMIEN_POJAZD(2,"Zmień pojazd."),
-	D_WYLOGUJ(3,"Wyloguj."),
-	D_WYJSCIE(4,"Wyjście.")
+	DRIVER_ADD_REFUEL(1,"Zanotuj tankowanie."),
+	DRIVER_CHANGE_CAR(2,"Zmień pojazd."),
+	DRIVER_LOGOUT(3,"Wyloguj."),
+	DRIVER_EXIT(4,"Wyjście.")
 	;
 	
 	private int value;

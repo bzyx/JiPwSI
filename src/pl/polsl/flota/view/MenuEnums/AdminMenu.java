@@ -9,13 +9,13 @@ package pl.polsl.flota.view.MenuEnums;
  * 
  */
 public enum AdminMenu implements IMenuEnum {
-	AM_DODAJ_POJAZD(1, "Dodaj pojazd."), 
-	AM_PRZEGLADAJ_POJAZDY(2,"Przeglądaj pojazdy."), 
-	AM_EDYTUJ_POJAZD(3,"Edytuj/Przeglądaj pojazd."), 
-	AM_USUN_POJAZD(4, "Usuń pojazd."), 
-	AM_KIEROWCA(5, "Kierowca."), 
-	AM_WYLOGUJ(6, "Wyloguj."), 
-	AM_WYJSCIE(7,"Wyjście z programu.");
+	ADMIN_MENU_ADD_CAR(1, "Dodaj pojazd."), 
+	ADMIN_MENU_VIEW_CARS(2,"Przeglądaj pojazdy."), 
+	ADMIN_MENU_EDIT_OR_VIEW_CAR(3,"Edytuj/Przeglądaj pojazd."), 
+	ADMIN_MENU_REMOVE_CAR(4, "Usuń pojazd."), 
+	ADMIN_MENU_DRIVER(5, "Kierowca."), 
+	ADMIN_MENU_LOGOUT(6, "Wyloguj."), 
+	ADMIN_MENU_EXIT(7,"Wyjście z programu.");
 
 	private int value;
 	private String description;

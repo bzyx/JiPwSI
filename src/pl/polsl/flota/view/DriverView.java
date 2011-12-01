@@ -1,5 +1,5 @@
 /**
- * 
+ * An Driver View for user.
  */
 package pl.polsl.flota.view;
 

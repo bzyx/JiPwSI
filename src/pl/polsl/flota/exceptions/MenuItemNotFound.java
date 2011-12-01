@@ -1,5 +1,5 @@
 /**
- * 
+ *   An class for MenuItemNotFound.
  */
 package pl.polsl.flota.exceptions;
 

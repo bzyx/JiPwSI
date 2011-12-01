@@ -1,12 +1,11 @@
 /**
- * 
+ * A model class for Car type.
  */
 package pl.polsl.flota.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * A model of Car in Flota.
  * 

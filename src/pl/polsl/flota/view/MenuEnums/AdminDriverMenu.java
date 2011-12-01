@@ -9,11 +9,11 @@ package pl.polsl.flota.view.MenuEnums;
  *
  */
 public enum AdminDriverMenu implements IMenuEnum {
-	AD_DODAJ_KIEROWCE(1,"Dodaj kierowcę."),
-	AD_PRZEGLADAJ_KIEROWCOW(2, "Przeglądaj kierowców."),
-	AD_ZMIEN_HASLO(3 ,"Zmień hasło."),
-	AD_USUN_KIEROWCE(4, "Usuń kierowcę."),
-	AD_COFNIJ_DO_MENU(5, "Cofnij do menu głównego");
+	ADMIN_DRIVER_ADD_DRIVER(1,"Dodaj kierowcę."),
+	ADMIN_DRIVER_VIEW_DRIVERS(2, "Przeglądaj kierowców."),
+	ADMIN_DRIVER_CHANGE_PASSWORD(3 ,"Zmień hasło."),
+	ADMIN_DRIVER_RMOVE_DRIVER(4, "Usuń kierowcę."),
+	ADMIN_DRIVER_BACK(5, "Cofnij do menu głównego");
 
 	private int value;
 	private String description;

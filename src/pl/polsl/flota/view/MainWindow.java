@@ -3,15 +3,11 @@
  */
 package pl.polsl.flota.view;
 
-//TODO: Dodac komentarze na poczatku klas. 
-//TODO: Zmienic kolejnosc pierwsze opis potem autor.
-//TODO: Usunac zbedne entery przed klamrami.
-//Testy jednostkowe dla klas modelu 
-//- testy zbiorcze. 
-
-//FIXME: IMPLEMNETACJA r3 do 18/11/2011 ;)
 import java.io.IOException;
 import java.util.Scanner;
+
+import javax.swing.JFrame;
+import javax.swing.JWindow;
 
 import pl.polsl.flota.exceptions.ElementAlredyExists;
 import pl.polsl.flota.exceptions.ElementNotFound;
@@ -21,6 +17,19 @@ import pl.polsl.flota.view.MenuEnums.AdminDriverMenu;
 import pl.polsl.flota.view.MenuEnums.AdminMenu;
 import pl.polsl.flota.view.MenuEnums.DriverMenu;
 
+
+/*
+ * GUI z wykorzystaniem Swing, 
+ * - menu, 
+ * - pasek narzędziowy, 
+ * - zaawans. komponent (JTable lub JTree), 
+ * - zaawans. kontener (JSplitPane lub JTabbedPane) 
+ * - okno dialogowe, 
+ * - okna komunikatów (JOptionPane) 
+ * - obsługa zdarzeń głównego okna (zamknięcie aplikacji, minimalizacja, itp.), 
+ * - uruchamianie jako aplikacja. 
+ * 
+ */
 /**
  * This is the main class of the application instance.
  * 
@@ -66,7 +75,16 @@ public final class MainWindow {
 			System.exit(0);
 		}
 
-		while (true) {
+		
+	    JFrame f = new JFrame("The Frame");
+	    f.setSize(300, 300);
+	    f.setLocation(100, 100);
+
+	    f.add(new AdminViewSwing());
+	    f.setVisible(true);
+		System.out.println("Po window.");
+		
+/*		while (true) {
 			mywindow.currentUserId = loginScreen(mywindow.currentUserId,
 					mywindow);
 			Helpers.clearScren();
@@ -81,7 +99,7 @@ public final class MainWindow {
 					mainMenuDriver(mywindow);
 				}
 			}
-		}
+		}*/
 	}
 
 	/**
@@ -123,7 +141,7 @@ public final class MainWindow {
 			mainMenuAdmin(mywindow);
 		}
 		switch (retVal) {
-		case AM_DODAJ_POJAZD : {
+		case ADMIN_MENU_ADD_CAR : {
 			try {
 				mywindow.adminView.addCar();
 			} catch (ElementAlredyExists e) {
@@ -131,11 +149,11 @@ public final class MainWindow {
 			}
 			break;
 		}
-		case  AM_PRZEGLADAJ_POJAZDY: {
+		case  ADMIN_MENU_VIEW_CARS: {
 			mywindow.adminView.listCars();
 			break;
 		}
-		case AM_EDYTUJ_POJAZD: {
+		case ADMIN_MENU_EDIT_OR_VIEW_CAR: {
 			try {
 				mywindow.adminView.editOrViewCar();
 			} catch (ElementNotFound e) {
@@ -145,7 +163,7 @@ public final class MainWindow {
 
 			break;
 		}
-		case AM_USUN_POJAZD: {
+		case ADMIN_MENU_REMOVE_CAR: {
 			try {
 				mywindow.adminView.deleteCar();
 			} catch (ElementNotFound e) {
@@ -154,17 +172,17 @@ public final class MainWindow {
 			}
 			break;
 		}
-		case AM_KIEROWCA : {
+		case ADMIN_MENU_DRIVER : {
 			Helpers.clearScren();
 			mainMenuAdminDriver(mywindow);
 			break;
 		}
-		case AM_WYLOGUJ: {
+		case ADMIN_MENU_LOGOUT: {
 			mywindow.adminView.save();
 			mywindow.currentUserId = -2;
 			break;
 		}
-		case AM_WYJSCIE : {
+		case ADMIN_MENU_EXIT : {
 			mywindow.adminView.save();
 			System.exit(0);
 		}
@@ -185,7 +203,7 @@ public final class MainWindow {
 			mainMenuAdminDriver(mywindow);
 		}
 		switch (retVal) {
-		case AD_DODAJ_KIEROWCE: {
+		case ADMIN_DRIVER_ADD_DRIVER: {
 			try {
 				mywindow.adminView.addUser();
 			} catch (ElementAlredyExists e) {
@@ -193,11 +211,11 @@ public final class MainWindow {
 			}
 			break;
 		}
-		case AD_PRZEGLADAJ_KIEROWCOW: {
+		case ADMIN_DRIVER_VIEW_DRIVERS: {
 			mywindow.adminView.listUsers();
 			break;
 		}
-		case AD_ZMIEN_HASLO: {
+		case ADMIN_DRIVER_CHANGE_PASSWORD: {
 			try {
 				mywindow.adminView.editUser();
 			} catch (ElementNotFound e) {
@@ -205,7 +223,7 @@ public final class MainWindow {
 			}
 			break;
 		}
-		case AD_USUN_KIEROWCE: {
+		case ADMIN_DRIVER_RMOVE_DRIVER: {
 			try {
 				mywindow.adminView.deleteUser();
 			} catch (ElementNotFound e) {
@@ -213,7 +231,7 @@ public final class MainWindow {
 			}
 			break;
 		}
-		case AD_COFNIJ_DO_MENU: {
+		case ADMIN_DRIVER_BACK: {
 			Helpers.clearScren();
 			mainMenuAdmin(mywindow);
 			break;
@@ -236,7 +254,7 @@ public final class MainWindow {
 			mainMenuDriver(mywindow);
 		}
 		switch (retVal) {
-		case D_ZANOTUJ_TANKOWANIE: {
+		case DRIVER_ADD_REFUEL: {
 			try {
 				Helpers.clearScren();
 				mywindow.driverView.userRefuel(mywindow.currentUserId);
@@ -248,7 +266,7 @@ public final class MainWindow {
 			}
 			break;
 		}
-		case D_ZMIEN_POJAZD: {
+		case DRIVER_CHANGE_CAR: {
 			try {
 				Helpers.clearScren();
 				mywindow.driverView.userChangeCar(mywindow.currentUserId);
@@ -258,12 +276,12 @@ public final class MainWindow {
 			}
 			break;
 		}
-		case D_WYLOGUJ: {
+		case DRIVER_LOGOUT: {
 			mywindow.driverView.save();
 			mywindow.currentUserId = -2;
 			break;
 		}
-		case D_WYJSCIE: {
+		case DRIVER_EXIT: {
 			mywindow.driverView.save();
 			System.exit(0);
 		}

@@ -1,5 +1,5 @@
 /**
- * 
+ *  An class for ElementNotFound.
  */
 package pl.polsl.flota.exceptions;
 

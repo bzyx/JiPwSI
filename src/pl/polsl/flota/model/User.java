@@ -1,5 +1,5 @@
 /**
- * 
+ * A User class.
  */
 package pl.polsl.flota.model;
 

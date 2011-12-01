@@ -1,5 +1,5 @@
 /**
- * 
+ * This is file contains UserController class.
  */
 package pl.polsl.flota.controller;
 
@@ -13,6 +13,8 @@ import pl.polsl.flota.model.User;
 import pl.polsl.flota.model.UserList;
 
 /**
+ * UserController class.
+ * 
  * @author Marcin Jabrzyk
  * @since 1.1.1 28.10.2011
  */

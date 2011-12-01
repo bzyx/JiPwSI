@@ -1,5 +1,5 @@
 /**
- * 
+ * An class for ElementAlredyExists.
  */
 package pl.polsl.flota.exceptions;
 
