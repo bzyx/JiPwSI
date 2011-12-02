@@ -352,9 +352,5 @@ public class CarController {
 		throw new ElementNotFound("Car: getCarForUser " + userId
 				+ " - element not found");
 	}
-	
-	public List<Car> getRawList(){
-		return carList.getListOfCars();
-	}
 
 }

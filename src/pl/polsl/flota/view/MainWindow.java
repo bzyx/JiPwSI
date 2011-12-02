@@ -3,9 +3,11 @@
  */
 package pl.polsl.flota.view;
 
-import java.awt.HeadlessException;
 import java.io.IOException;
 import java.util.Scanner;
+
+import javax.swing.JFrame;
+import javax.swing.JWindow;
 
 import pl.polsl.flota.exceptions.ElementAlredyExists;
 import pl.polsl.flota.exceptions.ElementNotFound;
@@ -15,6 +17,19 @@ import pl.polsl.flota.view.MenuEnums.AdminDriverMenu;
 import pl.polsl.flota.view.MenuEnums.AdminMenu;
 import pl.polsl.flota.view.MenuEnums.DriverMenu;
 
+
+/*
+ * GUI z wykorzystaniem Swing, 
+ * - menu, 
+ * - pasek narzędziowy, 
+ * - zaawans. komponent (JTable lub JTree), 
+ * - zaawans. kontener (JSplitPane lub JTabbedPane) 
+ * - okno dialogowe, 
+ * - okna komunikatów (JOptionPane) 
+ * - obsługa zdarzeń głównego okna (zamknięcie aplikacji, minimalizacja, itp.), 
+ * - uruchamianie jako aplikacja. 
+ * 
+ */
 /**
  * This is the main class of the application instance.
  * 
@@ -31,10 +46,9 @@ public final class MainWindow {
 	public MainWindow() {
 		currentUserId = -2; //An non-valid user id.
 
-		/*
 		adminView = new AdminView();
 		driverView = new DriverView();
-		 */
+
 	}
 
 	/**
@@ -48,9 +62,8 @@ public final class MainWindow {
 			System.out
 					.println("Podaj nazwy pliku z użytkownikami i samochodami");
 			System.out.println("np. flota users.json cars.json ");
-			//System.exit(0);
+			System.exit(0);
 		}
-		/*
 		System.out.println("Witaj w programie Flota.");
 		try {
 			mywindow.adminView.setFileNameUserList(args[0]);
@@ -59,22 +72,17 @@ public final class MainWindow {
 			mywindow.driverView.setFileNameCarList(args[1]);
 		} catch (IOException e) {
 			System.out.println("Błąd podczas otwierania pliku.");
-			
 			System.exit(0);
 		}
-		*/
 
-		ApplicationWindow window = null;
-		try {
-			window = new ApplicationWindow("cars.json");
-		} catch (HeadlessException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		window.setVisible(true);
 		
-		
+	    JFrame f = new JFrame("The Frame");
+	    f.setSize(300, 300);
+	    f.setLocation(100, 100);
+
+	    f.add(new AdminViewSwing());
+	    f.setVisible(true);
+		System.out.println("Po window.");
 		
 /*		while (true) {
 			mywindow.currentUserId = loginScreen(mywindow.currentUserId,
@@ -104,7 +112,6 @@ public final class MainWindow {
 	 *            refrence to current window
 	 * @return the userId
 	 */
-	@Deprecated
 	private static Integer loginScreen(Integer currentId, MainWindow mywindow) {
 		if (currentId < 0) {
 			Scanner scanner = new Scanner(System.in);
@@ -125,7 +132,6 @@ public final class MainWindow {
 	 * 
 	 * @param mywindow
 	 */
-	@Deprecated
 	private static void mainMenuAdmin(MainWindow mywindow) {
 		AdminMenu retVal = null;
 		try {
@@ -188,7 +194,6 @@ public final class MainWindow {
 	 * 
 	 * @param mywindow
 	 */
-	@Deprecated
 	private static void mainMenuAdminDriver(MainWindow mywindow) {
 		AdminDriverMenu retVal = null;
 		try {
@@ -239,7 +244,6 @@ public final class MainWindow {
 	 * 
 	 * @param mywindow
 	 */
-	@Deprecated
 	private static void mainMenuDriver(MainWindow mywindow) {
 		//Integer retVal = Helpers.menuToOptionId(mywindow.menuDriverLvl1);
 		DriverMenu retVal = null;
