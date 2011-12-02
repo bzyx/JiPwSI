@@ -14,19 +14,42 @@ import javax.swing.JTextField;
 import pl.polsl.flota.controller.CarController;
 import pl.polsl.flota.exceptions.ElementAlredyExists;
 
+/**
+ * The Class AddCarDialog.
+ */
 public class AddCarDialog extends JDialog {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The reg number. */
 	JLabel regNumber = new JLabel("Numer rejestarcyjny : ");
+	
+	/** The name. */
 	JLabel name = new JLabel("Nazwa [Marka model] :");
+	
+	/** The distance. */
 	JLabel distance = new JLabel("Przebieg początkowy :");
+	
+	/** The avg consumpiton. */
 	JLabel avgConsumpiton = new JLabel("Średnie spalanie :");
+	
+	/** The reg number field. */
 	JTextField regNumberField = new JTextField();
+	
+	/** The name field. */
 	JTextField nameField = new JTextField();
+	
+	/** The distance field. */
 	JTextField distanceField = new JTextField();
+	
+	/** The avg consumpiton field. */
 	JTextField avgConsumpitonField = new JTextField();
+	
+	/** The d. */
 	JDialog d;
+	
+	/** The car data. */
 	String[] carData = new String[4];
 
 	public AddCarDialog(Frame owner, boolean modal) {
@@ -55,8 +78,17 @@ public class AddCarDialog extends JDialog {
 		});
 	}
 
-	public AddCarDialog(final CarController carController) {
-		super();
+	/**
+	 * Instantiates a new CarDialog.
+	 * 
+	 * A CarDialog is used to get data from user, and create a new Car.
+	 *
+	 * @param owner the owner
+	 * @param modal the modal
+	 */
+	public AddCarDialog(Frame owner, boolean modal,
+			final CarController carController) {
+		super(owner, modal);
 		d = this;
 		this.setTitle("Dodaj samochód");
 		this.setLayout(new GridLayout(5, 2));
@@ -82,23 +114,15 @@ public class AddCarDialog extends JDialog {
 							Float.parseFloat(avgConsumpitonField.getText()));
 
 				} catch (NumberFormatException | ElementAlredyExists e1) {
-					String[] button = {"OK"};
+					String[] button = { "OK" };
 					JOptionPane.showOptionDialog(null,
 							"Wystąpił błąd podczas dodawania pojazdu", "Bład",
 							JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE,
-							 null, button , null);
+							null, button, null);
 				}
 				d.dispose();
 			}
 		});
-	}
-
-	public String[] getData() {
-		carData[0] = regNumberField.getText();
-		carData[1] = nameField.getText();
-		carData[2] = distanceField.getText();
-		carData[3] = avgConsumpitonField.getText();
-		return carData;
 	}
 
 }

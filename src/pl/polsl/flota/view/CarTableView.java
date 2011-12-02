@@ -9,28 +9,51 @@ import pl.polsl.flota.controller.CarController;
 import pl.polsl.flota.exceptions.ElementNotFound;
 import pl.polsl.flota.model.Car;
 
+/**
+ * The Class CarTableView a model for JTable
+ */
 public class CarTableView extends AbstractTableModel {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The car controller. */
 	CarController carController;
+	
+	/** The list of cars. */
 	List<Car> listOfCars;
+	
+	/**
+	 * Instantiates a new car table model.
+	 *
+	 * @param carController the car controller
+	 */
 	public CarTableView(CarController carController) {
 		this.carController = carController;
 		listOfCars = carController.getRawList();
 	}
 
+	/**
+	 * Reruns a list of rows in table.
+	 */
 	@Override
 	public int getRowCount() {
 		return listOfCars.size();
 	}
 
+	/**
+	 * Reruns a list of columns in table.
+	 */
 	@Override
 	public int getColumnCount() {
-		//There are 6 columns in Car model except historyOfRefuel
+		//There are 5 columns in Car model except historyOfRefuel
 		return 5;
 	}
 	
-	  public String getColumnName(int column) {
+	/**
+	 * Reruns a column name for a header in a JTable.
+	 */
+  	public String getColumnName(int column) {
 			switch (column){
 			case 0: return "Numer rej. ";
 			case 1: return "Nazwa ";
@@ -41,6 +64,9 @@ public class CarTableView extends AbstractTableModel {
 			return null;
 		  }
 
+	/**
+	 * Reruns a value from a model for a given row and column.
+	 */
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Car currentCar = listOfCars.get(rowIndex);
@@ -56,10 +82,19 @@ public class CarTableView extends AbstractTableModel {
 		return returnVal;
 	}
 	
+	/**
+	 * Reruns a type of a data in a column.
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Class getColumnClass(int c) {
        return getValueAt(0, c).getClass();
     }
 	
+	/**
+	 * Sets is a cell can be edited or not.
+	 * @param row row
+	 * @parm col col
+	 */
     public boolean isCellEditable(int row, int col) {
         if (col < 1 || col == 3 ) {
             return false;
@@ -68,6 +103,12 @@ public class CarTableView extends AbstractTableModel {
         }
     }
 
+	/**
+	 * Sets a value for a given row an col.
+	 * @param value a value to set.
+	 * @param row the row of value
+	 * @param col the col of the value
+	 */
     public void setValueAt(Object value, int row, int col) {
         fireTableCellUpdated(row, col);
         Car tempCarObject = listOfCars.get(row);
@@ -95,6 +136,19 @@ public class CarTableView extends AbstractTableModel {
 			e.printStackTrace();
 		}
     }
+    
+	/**
+	 * Delete item from a row and model.
+	 *
+	 * @param selectedRow the selected row to remove an item.
+	 */
+	public void deleteItem(int selectedRow) {
+		String carRegNumber = (String) this.getValueAt(selectedRow, 0);
+		this.fireTableRowsDeleted(selectedRow, selectedRow);
+		
+		carController.deleteCar(carRegNumber);
+		
+	}
 
 
 }
