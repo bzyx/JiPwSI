@@ -1,0 +1,4 @@
+- serwlet realizujący dostęp do klas modelu, 
+- komunikacja z formatki zrealizowanej w pliku HTML; 
+- jednakowa obsługa metod GET i POST 
+- obsługa błędnych danych i braku danych przesyłanych do serwletu. 
