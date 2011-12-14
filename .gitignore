@@ -6,3 +6,8 @@ doc/
 libs/
 test.txt
 test2.txt
+build/
+conf/
+dist/
+lib/
+servlet/

@@ -353,4 +353,8 @@ public class CarController {
 				+ " - element not found");
 	}
 
+    public List<Car> getRawList() {
+        return carList.getListOfCars();
+    }
+
 }
