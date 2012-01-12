@@ -6,21 +6,18 @@ package pl.polsl.flota.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import pl.polsl.flota.controller.CarController;
-import pl.polsl.flota.exceptions.ElementAlredyExists;
+import pl.polsl.flota.exceptions.ElementNotFound;
 
 /**
  *
  * @author bzyx
  */
-public class addCar extends HttpServlet {
+public class editCar extends HttpServlet {
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,14 +34,14 @@ public class addCar extends HttpServlet {
             /* TODO output your page here
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addCar</title>");  
+            out.println("<title>Servlet editCar</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet addCar at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet editCar at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
              */
-        } finally {
+        } finally {            
             out.close();
         }
     }
@@ -73,30 +70,29 @@ public class addCar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/plain; charset=ISO-8859-2");
+                response.setContentType("text/plain; charset=ISO-8859-2");
 
         // strumień do którego będzie zapisywana generowana odpowiedź
         PrintWriter out = response.getWriter();
-        out.println();
-        out.println("Dodaję samochód: ");
+        out.println("<html> <body>");
+        out.println("Edytuję samochód: ");
         out.print("Numer rejestracyjny: ");
         out.println(request.getParameter("reg_number"));
-        out.print("Marka: ");
-        out.println(request.getParameter("carName"));
 
+        out.println("<a href=\"../index.jsp\">Powrót</a>");
         CarController carController = new CarController("/home/bzyx/dev/java/flota-servlet/JiPwSI/cars.json");
         try {
-            carController.addCar(request.getParameter("reg_number"),
+            carController.editCar(request.getParameter("reg_number"),
                     request.getParameter("carName"),
-                    Integer.parseInt(request.getParameter("distance"), 10),
-                    Float.parseFloat(request.getParameter("consumption")));
-        } catch (ElementAlredyExists ex) {
-            out.println("Taki samochód już istnieje. Nie można dodać po raz drugi.");
+                    request.getParameter("distance"),
+                    request.getParameter("consumption"));
+        } catch (ElementNotFound ex) {
+            out.println("Nie udało się zapisać.");
             //ex.printStackTrace();
         } catch (NumberFormatException ex) {
             out.println("Błędny format wprowadzonych danych. ");
         }
-
+        out.println("</body> </html>");
         carController.save("/home/bzyx/dev/java/flota-servlet/JiPwSI/cars.json");
     }
 

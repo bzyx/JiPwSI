@@ -49,6 +49,9 @@
                   Lp.  
                 </td>
                 <td>
+                  Numer rejestracyjny 
+                </td>
+                <td>
                   Nazwa 
                 </td>
                 <td>
@@ -60,6 +63,9 @@
                  <td>
                   Tankownaie
                 </td>
+                <td>
+                  Usuń
+                </td>
             </tr>
             <c:forEach var="car" items="${pageScope.names}" varStatus="status">
                 
@@ -67,7 +73,9 @@
                 <td>
                     <c:out value="${status.count}" />
                 </td>
-                
+                  <td>
+                      <a href="/JiPwSI/admin/editCar.jsp?regNumber=${car.getRegNumber()}" alt="Edytuj ten samochód"> <c:out value="${car.getRegNumber()}" /> </a>
+                </td>
                   <td>
                     <c:out value="${car.getName()}" />
                 </td>
@@ -79,8 +87,11 @@
                     <c:out value="${car.getDistance() }" />
                   </td>
                    <td>
-                       <a href="/JiPwSI/showRefuel?id=${car.getRegNumber()}">Pokaż tankowania (<c:out value="${car.getHistoryOfRefuel().size()}" /> )</a>
-                  </td>               
+                       <a href="/JiPwSI/admin/viewRefuelList.jsp?regNumber=${car.getRegNumber()}">Pokaż tankowania (<c:out value="${car.getHistoryOfRefuel().size()}" /> )</a>
+                  </td>  
+                  <td>
+                       <a href="/JiPwSI/deleteCar?regNumber=${car.getRegNumber()}">Usuń</a>
+                  </td>
             </tr>
                 <%--//Family member # is
                 <c:out value="${car.getName()}" /> <br />--%>
