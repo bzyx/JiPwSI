@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    session.setAttribute("carsFilePath", session.getServletContext().getRealPath("/") + "cars.json");
+    session.setAttribute("usersFilePath", session.getServletContext().getRealPath("/") + "users.json");
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,7 +18,7 @@
     <body>
         <h1>Menadżer zarządzania flotą.</h1>
         <p> Wybierz akcję </p>
-        
+
         <h2> Kierowca </h2>
         <ul>
             <li> <a href="driver/addRefuel.jsp">Zanotuj tankowanie</a> </li>
@@ -28,6 +32,5 @@
             <li> <a href="admin/addDriver.jsp">Dodaj kierowcę</a> </li>
             <li> <a href="admin/viewDrivers.jsp">Przeglądaj kierowców</a> </li>
         </ul>
-        
     </body>
 </html>

@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import pl.polsl.flota.controller.CarController;
 import pl.polsl.flota.exceptions.ElementNotFound;
 
@@ -80,7 +81,8 @@ public class editCar extends HttpServlet {
         out.println(request.getParameter("reg_number"));
 
         out.println("<a href=\"../index.jsp\">Powrót</a>");
-        CarController carController = new CarController("/home/bzyx/dev/java/flota-servlet/JiPwSI/cars.json");
+        HttpSession session = request.getSession();
+        CarController carController = new CarController(session.getAttribute("carsFilePath").toString());
         try {
             carController.editCar(request.getParameter("reg_number"),
                     request.getParameter("carName"),
@@ -93,7 +95,7 @@ public class editCar extends HttpServlet {
             out.println("Błędny format wprowadzonych danych. ");
         }
         out.println("</body> </html>");
-        carController.save("/home/bzyx/dev/java/flota-servlet/JiPwSI/cars.json");
+        carController.save(session.getAttribute("carsFilePath").toString());
     }
 
     /** 

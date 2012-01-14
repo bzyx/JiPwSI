@@ -208,13 +208,8 @@ public class CarController {
 	 * @param string
 	 *            the string
 	 */
-	public void deleteCar(String string) {
-		Car car = null;
-		try {
-			car = getCarByRegistrationNumber(string);
-		} catch (ElementNotFound e) {
-			System.out.println("CarController: deleteCar car not found");
-		}
+	public void deleteCar(String string) throws ElementNotFound {
+                Car car = getCarByRegistrationNumber(string);
 		carList.deleteItem(car);
 	}
 

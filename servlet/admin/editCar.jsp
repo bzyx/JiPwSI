@@ -5,7 +5,7 @@
 --%>
 <%@page import="pl.polsl.flota.model.Car"%>
 <%@page import="pl.polsl.flota.controller.CarController"%>
-<% CarController carController = new CarController("/home/bzyx/dev/java/flota-servlet/JiPwSI/cars.json");  
+<% CarController carController = new CarController(session.getAttribute("carsFilePath").toString());  
    String carRegistartionNumer = request.getParameter("regNumber");
    
    String regNumber = carRegistartionNumer;
@@ -44,7 +44,7 @@
                 <li>
                     <label for="reg_number">Numer rejestracyjny </label>
                     <div>
-                        <input id="reg_number" name="reg_number"  type="text" maxlength="255" value="${registrationNumber}"/> 
+                        <input id="reg_number" name="reg_number"  type="text" maxlength="255" value="${registrationNumber}" readonly=""/> 
                     </div> 
                 </li>		
                 <li>
