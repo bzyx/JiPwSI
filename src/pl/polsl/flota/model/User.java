@@ -78,6 +78,10 @@ public class User {
 	public Boolean getIsAdmin() {
 		return isAdmin;
 	}
+        
+        public String getIsAdminString() {
+		return isAdmin?"Tak":"Nie";
+	}
 
 	/**
 	 * @return the password

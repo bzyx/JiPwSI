@@ -173,5 +173,9 @@ public class UserController {
 		}
 		return false;
 	}
+        
+        public List<User> getRawList(){
+            return userList.getListOfUsers();
+        }
 
 }
