@@ -24,6 +24,14 @@
         <servlet-name>addDriver</servlet-name>
         <servlet-class>pl.polsl.flota.servlets.addDriver</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>changeUserPassword</servlet-name>
+        <servlet-class>pl.polsl.flota.servlets.changeUserPassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteUser</servlet-name>
+        <servlet-class>pl.polsl.flota.servlets.deleteUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/IndexServlet</url-pattern>
@@ -47,6 +55,14 @@
     <servlet-mapping>
         <servlet-name>addDriver</servlet-name>
         <url-pattern>/addDriver</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changeUserPassword</servlet-name>
+        <url-pattern>/changeUserPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteUser</servlet-name>
+        <url-pattern>/deleteUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
