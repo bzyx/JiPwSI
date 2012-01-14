@@ -6,10 +6,17 @@ package pl.polsl.flota.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import pl.polsl.flota.controller.UserController;
+import pl.polsl.flota.exceptions.ElementNotFound;
+import pl.polsl.flota.model.User;
 
 /**
  *
@@ -76,7 +83,37 @@ public class changeUserPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Boolean wasError = false;
+        HttpSession session = request.getSession();
+        UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
+        
+        User user = null;
+        try {
+            user = userController.getUserList().getUserById(Integer.parseInt(request.getParameter("userId")));
+        } catch (ElementNotFound ex) {
+            Logger.getLogger(changeUserPassword.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String responseText = " <p><ul> <li>Imię i nazwisko: <em> "
+                + user.getFullName()
+                 + " </em></li> <li>Nowe hasło: <em> " 
+                + request.getParameter("password")
+                + " </em></ul> <br> <strong> Wynik: </strong> ";
+        try {
+                userController.editUser(user.getUserId().toString(), request.getParameter("password"));
+        } catch (ElementNotFound ex) {
+            wasError = true;
+            responseText += "Nie udało się zapisać.";
+        }
+        if (!wasError) {
+            responseText += "Wprowadzono pomyślnie zmiany.";
+        }
+        responseText += "</p>";
+        userController.save(session.getAttribute("usersFilePath").toString());
+
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/response.jsp");
+        request.setAttribute("title", "Zmiana hasła");
+        request.setAttribute("inner", responseText);
+        rd.forward(request, response);
     }
 
     /**

@@ -57,7 +57,7 @@
                 </tbody>
             </table>
         </c:if>
+        <br>
+        <a href="../index.jsp">Powrót</a>
     </body>
-    <br>
-    <a href="../index.jsp">Powrót</a>
 </html>

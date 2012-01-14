@@ -129,9 +129,10 @@ public class UserController {
 					"UserController: deleteUser wrong Integer");
 		}
 		for (User user : userList.getListOfUsers()) {
-			if (user.getUserId() == id) {
+			if (user.getUserId().equals(id) ) {
 				userList.deleteItem(user);
 				isError = false;
+                                return;
 			}
 		}
 		if (isError) {
@@ -176,6 +177,10 @@ public class UserController {
         
         public List<User> getRawList(){
             return userList.getListOfUsers();
+        }
+        
+        public UserList getUserList(){
+            return  userList;
         }
 
 }

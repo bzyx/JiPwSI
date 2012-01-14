@@ -6,10 +6,16 @@ package pl.polsl.flota.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import pl.polsl.flota.controller.UserController;
+import pl.polsl.flota.exceptions.ElementNotFound;
 
 /**
  *
@@ -61,7 +67,29 @@ public class deleteUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+               Boolean wasError = false;
+        HttpSession session = request.getSession();
+        UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
+        
+        String responseText = " <p><ul> <li>Id usuwanego użytkownika: <em> "
+                + request.getParameter("id")
+                + " </em></ul> <br> <strong> Wynik: </strong> ";
+        try {
+                userController.deleteUser(request.getParameter("id"));
+        } catch (ElementNotFound ex) {
+            wasError = true;
+            responseText += "Nie udało się usunąć użytkownika.";
+        }
+        if (!wasError) {
+            responseText += "Pomyślnie usunięto.";
+        }
+        responseText += "</p>";
+        userController.save(session.getAttribute("usersFilePath").toString());
+
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/response.jsp");
+        request.setAttribute("title", "Zmiana hasła");
+        request.setAttribute("inner", responseText);
+        rd.forward(request, response);
     }
 
     /**
