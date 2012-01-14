@@ -45,6 +45,7 @@
             </ul>
             <input id="saveForm" type="submit" name="submit" value="Dodaj" />
         </form>	
+        <br>
         <a href="../index.jsp">Powrót</a>
     </body>
 </html>

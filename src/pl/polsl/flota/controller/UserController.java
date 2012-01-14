@@ -51,7 +51,10 @@ public class UserController {
 	 * @throws ElementAlredyExists
 	 */
 	public void addUser(String userName, String userPassword,
-			String userFullName) throws ElementAlredyExists {
+			String userFullName) throws ElementAlredyExists, Exception {
+            if (userName.isEmpty() || userPassword.isEmpty() ){
+                throw new Exception("Nie można podawać pustych wartości.");
+            }
 		userList.addUser(new User(userName, userPassword, userFullName));
 
 	}
