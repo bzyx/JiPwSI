@@ -1,11 +1,8 @@
 package pl.polsl.flota.model.tests;
 
-import static org.junit.Assert.*;
-
 import java.util.Date;
-
+import static org.junit.Assert.*;
 import org.junit.Test;
-
 import pl.polsl.flota.model.Car;
 import pl.polsl.flota.model.Refuel;
 

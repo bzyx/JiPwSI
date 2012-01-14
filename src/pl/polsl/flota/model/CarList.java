@@ -3,18 +3,16 @@
  */
 package pl.polsl.flota.model;
 
+import flexjson.JSONDeserializer;
+import flexjson.JSONException;
+import flexjson.JSONSerializer;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-
 import pl.polsl.flota.exceptions.ElementAlredyExists;
-
-import flexjson.JSONDeserializer;
-import flexjson.JSONException;
-import flexjson.JSONSerializer;
 
 /**
  * This class handles a list of car.

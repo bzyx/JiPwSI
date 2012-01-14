@@ -6,10 +6,7 @@ package pl.polsl.flota.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -79,9 +76,9 @@ public class addCar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String responseText = " <p><ul> <li>Numer rejestracyjny: <em> " 
+        String responseText = " <p><ul> <li>Numer rejestracyjny: <em> "
                 + request.getParameter("reg_number")
-                + " </em></li> <li>Marka: <em> " 
+                + " </em></li> <li>Marka: <em> "
                 + request.getParameter("carName")
                 + " </em></li></ul> <br> <strong> Wynik: </strong> ";
         Boolean wasError = false;
@@ -99,7 +96,7 @@ public class addCar extends HttpServlet {
             wasError = true;
             responseText += "Błędny format wprowadzonych danych.";
         }
-        if (!wasError){
+        if (!wasError) {
             responseText += "Dodano pomyślnie.";
         }
         responseText += "</p>";

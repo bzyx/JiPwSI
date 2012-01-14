@@ -6,7 +6,6 @@ package pl.polsl.flota.view;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
-
 import pl.polsl.flota.controller.CarController;
 import pl.polsl.flota.controller.UserController;
 import pl.polsl.flota.exceptions.ElementNotFound;

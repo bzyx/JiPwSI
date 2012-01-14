@@ -6,8 +6,6 @@ package pl.polsl.flota.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import pl.polsl.flota.controller.UserController;
 import pl.polsl.flota.exceptions.ElementAlredyExists;
-
 
 /**
  *
@@ -44,13 +41,13 @@ public class addDriver extends HttpServlet {
              */
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addDriver</title>");            
+            out.println("<title>Servlet addDriver</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet addDriver at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        } finally {            
+        } finally {
             out.close();
         }
     }
@@ -83,26 +80,26 @@ public class addDriver extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String responseText = " <p><ul> <li>Login: <em> " 
+        String responseText = " <p><ul> <li>Login: <em> "
                 + request.getParameter("login")
-                + " </em></li> <li>Hasło: <em> " 
+                + " </em></li> <li>Hasło: <em> "
                 + request.getParameter("password")
-                + " </em></li> <li>Pełna nazwa: <em> " 
+                + " </em></li> <li>Pełna nazwa: <em> "
                 + request.getParameter("fullName")
                 + " </em></li></ul> <br> <strong> Wynik: </strong> ";
         Boolean wasError = false;
         HttpSession session = request.getSession();
         UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
         try {
-                userController.addUser(request.getParameter("login"), request.getParameter("password"), request.getParameter("fullName"));
+            userController.addUser(request.getParameter("login"), request.getParameter("password"), request.getParameter("fullName"));
         } catch (ElementAlredyExists ex) {
             wasError = true;
             responseText += "Taki użytkownik już istnieje. Nie można dodać po raz drugi.";
-        } catch (Exception ex){
+        } catch (Exception ex) {
             wasError = true;
             responseText += "Należy uzupełnić pola login i hasło.";
         }
-        if (!wasError){
+        if (!wasError) {
             responseText += "Dodano pomyślnie.";
         }
         responseText += "</p>";

@@ -44,13 +44,13 @@ public class changeUserPassword extends HttpServlet {
              */
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet changeUserPassword</title>");            
+            out.println("<title>Servlet changeUserPassword</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet changeUserPassword at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        } finally {            
+        } finally {
             out.close();
         }
     }
@@ -86,7 +86,7 @@ public class changeUserPassword extends HttpServlet {
         Boolean wasError = false;
         HttpSession session = request.getSession();
         UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
-        
+
         User user = null;
         try {
             user = userController.getUserList().getUserById(Integer.parseInt(request.getParameter("userId")));
@@ -95,11 +95,11 @@ public class changeUserPassword extends HttpServlet {
         }
         String responseText = " <p><ul> <li>Imię i nazwisko: <em> "
                 + user.getFullName()
-                 + " </em></li> <li>Nowe hasło: <em> " 
+                + " </em></li> <li>Nowe hasło: <em> "
                 + request.getParameter("password")
                 + " </em></ul> <br> <strong> Wynik: </strong> ";
         try {
-                userController.editUser(user.getUserId().toString(), request.getParameter("password"));
+            userController.editUser(user.getUserId().toString(), request.getParameter("password"));
         } catch (ElementNotFound ex) {
             wasError = true;
             responseText += "Nie udało się zapisać.";

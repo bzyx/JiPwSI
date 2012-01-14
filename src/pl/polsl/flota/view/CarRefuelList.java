@@ -1,9 +1,7 @@
 package pl.polsl.flota.view;
 
 import java.util.List;
-
 import javax.swing.DefaultListModel;
-
 import pl.polsl.flota.controller.CarController;
 import pl.polsl.flota.model.Car;
 import pl.polsl.flota.model.Refuel;

@@ -4,7 +4,6 @@
 package pl.polsl.flota.helpers;
 
 import java.util.Scanner;
-
 import pl.polsl.flota.exceptions.MenuItemNotFound;
 import pl.polsl.flota.view.MenuEnums.AdminDriverMenu;
 import pl.polsl.flota.view.MenuEnums.AdminMenu;

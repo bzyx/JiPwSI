@@ -6,8 +6,6 @@ package pl.polsl.flota.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -43,13 +41,13 @@ public class deleteUser extends HttpServlet {
              */
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet deleteUser</title>");            
+            out.println("<title>Servlet deleteUser</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet deleteUser at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        } finally {            
+        } finally {
             out.close();
         }
     }
@@ -67,15 +65,15 @@ public class deleteUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-               Boolean wasError = false;
+        Boolean wasError = false;
         HttpSession session = request.getSession();
         UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
-        
+
         String responseText = " <p><ul> <li>Id usuwanego użytkownika: <em> "
                 + request.getParameter("id")
                 + " </em></ul> <br> <strong> Wynik: </strong> ";
         try {
-                userController.deleteUser(request.getParameter("id"));
+            userController.deleteUser(request.getParameter("id"));
         } catch (ElementNotFound ex) {
             wasError = true;
             responseText += "Nie udało się usunąć użytkownika.";
