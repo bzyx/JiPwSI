@@ -5,26 +5,26 @@
 --%>
 <%@page import="pl.polsl.flota.model.Car"%>
 <%@page import="pl.polsl.flota.controller.CarController"%>
-<% CarController carController = new CarController(session.getAttribute("carsFilePath").toString());  
-   String carRegistartionNumer = request.getParameter("regNumber");
-   
-   String regNumber = carRegistartionNumer;
-   String carName = "";
-   String consumption = "";
-   String distance = "";
-   
-   if (carRegistartionNumer != ""){
-    Car foundCar = carController.getCarByRegistrationNumber(carRegistartionNumer);
-    
-    carName = foundCar.getName();
-    consumption = foundCar.getAvgConsumpion().toString();
-    distance = foundCar.getDistance().toString();
-   }
+<% CarController carController = new CarController(session.getAttribute("carsFilePath").toString());
+    String carRegistartionNumer = request.getParameter("regNumber");
 
-   pageContext.setAttribute("registrationNumber", regNumber, PageContext.PAGE_SCOPE);
-   pageContext.setAttribute("carName", carName, PageContext.PAGE_SCOPE);
-   pageContext.setAttribute("consumption", consumption, PageContext.PAGE_SCOPE);
-   pageContext.setAttribute("distance", distance, PageContext.PAGE_SCOPE);
+    String regNumber = carRegistartionNumer;
+    String carName = "";
+    String consumption = "";
+    String distance = "";
+
+    if (carRegistartionNumer != "") {
+        Car foundCar = carController.getCarByRegistrationNumber(carRegistartionNumer);
+
+        carName = foundCar.getName();
+        consumption = foundCar.getAvgConsumpion().toString();
+        distance = foundCar.getDistance().toString();
+    }
+
+    pageContext.setAttribute("registrationNumber", regNumber, PageContext.PAGE_SCOPE);
+    pageContext.setAttribute("carName", carName, PageContext.PAGE_SCOPE);
+    pageContext.setAttribute("consumption", consumption, PageContext.PAGE_SCOPE);
+    pageContext.setAttribute("distance", distance, PageContext.PAGE_SCOPE);
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -68,6 +68,7 @@
             </ul>
             <input id="saveForm" type="submit" name="submit" value="Zapisz" />
         </form>	
+        <br>
         <a href="../index.jsp">Powrót</a>
     </body>
 </html>

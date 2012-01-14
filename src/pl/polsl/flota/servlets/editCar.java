@@ -6,6 +6,7 @@ package pl.polsl.flota.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +21,11 @@ import pl.polsl.flota.exceptions.ElementNotFound;
  */
 public class editCar extends HttpServlet {
 
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+    /**
+     * Processes requests for both HTTP
+     * <code>GET</code> and
+     * <code>POST</code> methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -32,24 +36,23 @@ public class editCar extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet editCar</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet editCar at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            /*
+             * TODO output your page here out.println("<html>");
+             * out.println("<head>"); out.println("<title>Servlet
+             * editCar</title>"); out.println("</head>"); out.println("<body>");
+             * out.println("<h1>Servlet editCar at " + request.getContextPath ()
+             * + "</h1>"); out.println("</body>"); out.println("</html>");
              */
-        } finally {            
+        } finally {
             out.close();
         }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
+    /**
+     * Handles the HTTP
+     * <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -61,8 +64,10 @@ public class editCar extends HttpServlet {
         processRequest(request, response);
     }
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
+    /**
+     * Handles the HTTP
+     * <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -71,16 +76,10 @@ public class editCar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                response.setContentType("text/plain; charset=ISO-8859-2");
-
-        // strumień do którego będzie zapisywana generowana odpowiedź
-        PrintWriter out = response.getWriter();
-        out.println("<html> <body>");
-        out.println("Edytuję samochód: ");
-        out.print("Numer rejestracyjny: ");
-        out.println(request.getParameter("reg_number"));
-
-        out.println("<a href=\"../index.jsp\">Powrót</a>");
+        String responseText = " <p><ul> <li>Numer rejestracyjny: <em> "
+                + request.getParameter("reg_number")
+                + " </em></ul> <br> <strong> Wynik: </strong> ";
+        Boolean wasError = false;
         HttpSession session = request.getSession();
         CarController carController = new CarController(session.getAttribute("carsFilePath").toString());
         try {
@@ -89,17 +88,27 @@ public class editCar extends HttpServlet {
                     request.getParameter("distance"),
                     request.getParameter("consumption"));
         } catch (ElementNotFound ex) {
-            out.println("Nie udało się zapisać.");
-            //ex.printStackTrace();
+            wasError = true;
+            responseText += "Nie udało się zapisać.";
         } catch (NumberFormatException ex) {
-            out.println("Błędny format wprowadzonych danych. ");
+            wasError = true;
+            responseText += "Błędny format wprowadzonych danych. ";
         }
-        out.println("</body> </html>");
+        if (!wasError) {
+            responseText += "Wprowadzono pomyślnie zmiany.";
+        }
+        responseText += "</p>";
         carController.save(session.getAttribute("carsFilePath").toString());
+
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/response.jsp");
+        request.setAttribute("title", "Edycja samochodu - wynik");
+        request.setAttribute("inner", responseText);
+        rd.forward(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
