@@ -90,7 +90,7 @@ public class UserList {
                 return user;
             }
         }
-        throw new ElementNotFound("User: getUserById - userId" + userId
+        throw new ElementNotFound("User: getUserById - userId " + userId
                 + " not Found");
     }
 
