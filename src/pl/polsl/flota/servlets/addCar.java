@@ -17,7 +17,7 @@ import pl.polsl.flota.exceptions.ElementAlredyExists;
 
 /**
  *
- * @author bzyx
+ * @author Marcin Jabrzyk
  */
 public class addCar extends HttpServlet {
 

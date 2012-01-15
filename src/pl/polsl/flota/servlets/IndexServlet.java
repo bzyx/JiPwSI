@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author bzyx
+ * @author Marcin Jabrzyk
  */
 public class IndexServlet extends HttpServlet {
 

@@ -2,7 +2,7 @@
 <%-- 
     Document   : viewDrivers
     Created on : 2011-12-15, 15:58:44
-    Author     : bzyx
+    Author     : Marcin Jabrzyk
 --%>
 
 <%@page import="pl.polsl.flota.controller.UserController"%>
@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Fleet Manager</title>
     </head>
     <body>
         <h1>Hello World!</h1>

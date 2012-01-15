@@ -2,7 +2,7 @@
 <%-- 
     Document   : viewRefuelList
     Created on : 2012-01-12, 23:12:49
-    Author     : bzyx
+    Author     : Marcin Jabrzyk
 --%>
 
 <%@page import="pl.polsl.flota.model.Refuel"%>
@@ -25,7 +25,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Fleet Manager</title>
     </head>
     <body>
 

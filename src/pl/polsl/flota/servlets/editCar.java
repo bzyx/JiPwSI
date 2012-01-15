@@ -17,7 +17,7 @@ import pl.polsl.flota.exceptions.ElementNotFound;
 
 /**
  *
- * @author bzyx
+ * @author Marcin Jabrzyk
  */
 public class editCar extends HttpServlet {
 

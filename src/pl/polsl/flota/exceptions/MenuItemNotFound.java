@@ -4,7 +4,7 @@
 package pl.polsl.flota.exceptions;
 
 /**
- * @author bzyx
+ * @author Marcin Jabrzyk
  *
  */
 public class MenuItemNotFound extends Exception {

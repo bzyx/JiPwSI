@@ -587,7 +587,7 @@ exists or setup the property manually. For example like this:
     <target depends="init,deps-jar,-pre-pre-compile,-pre-compile-single,-do-compile-single,-post-compile-single" name="compile-single"/>
     <property name="jspc.schemas" value="/resources/schemas/"/>
     <property name="jspc.dtds" value="/resources/dtds/"/>
-    <target depends="compile" description="Test compile JSP pages to expose compilation errors." if="do.compile.jsps" name="compile-jsps">
+    <target depends="compile" description="Test compile Fleet Managers to expose compilation errors." if="do.compile.jsps" name="compile-jsps">
         <mkdir dir="${build.generated.dir}/src"/>
         <java classname="org.netbeans.modules.web.project.ant.JspC" failonerror="true" fork="true">
             <arg value="-uriroot"/>

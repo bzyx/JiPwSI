@@ -1,7 +1,7 @@
 <%-- 
     Document   : addCar
     Created on : 2011-12-15, 15:57:56
-    Author     : bzyx
+    Author     : Marcin Jabrzyk
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

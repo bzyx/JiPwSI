@@ -7,7 +7,7 @@
 <%-- 
     Document   : viewCars
     Created on : 2011-12-15, 15:58:17
-    Author     : bzyx
+    Author     : Marcin Jabrzyk
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

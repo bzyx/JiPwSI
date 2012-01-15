@@ -2,7 +2,7 @@
 <%-- 
     Document   : changeCar
     Created on : 2011-12-15, 16:01:45
-    Author     : bzyx
+    Author     : Marcin Jabrzyk
 --%>
 
 <%@page import="pl.polsl.flota.controller.CarController"%>
@@ -16,7 +16,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Fleet Manager</title>
     </head>
     <body>
         <h1>Zmiana pojazdu.</h1>
@@ -28,7 +28,8 @@
                 </c:forEach>
             </select>
             <input type="submit" value="Zapisz" /> 
-        </form> 
-
+        </form>
+        <br>
+         <a href="../index.jsp">Powrót</a>
     </body>
 </html>

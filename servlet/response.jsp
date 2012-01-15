@@ -16,7 +16,7 @@ pageContext.setAttribute("innerHTML", inner, PageContext.PAGE_SCOPE);
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Fleet Manager</title>
     </head>
     <body>
         <h1>${titleText}</h1>
