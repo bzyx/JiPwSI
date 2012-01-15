@@ -32,6 +32,14 @@
         <servlet-name>deleteUser</servlet-name>
         <servlet-class>pl.polsl.flota.servlets.deleteUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addRefuel</servlet-name>
+        <servlet-class>pl.polsl.flota.servlets.addRefuel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>changeCar</servlet-name>
+        <servlet-class>pl.polsl.flota.servlets.changeCar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/IndexServlet</url-pattern>
@@ -63,6 +71,14 @@
     <servlet-mapping>
         <servlet-name>deleteUser</servlet-name>
         <url-pattern>/deleteUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addRefuel</servlet-name>
+        <url-pattern>/addRefuel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changeCar</servlet-name>
+        <url-pattern>/changeCar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

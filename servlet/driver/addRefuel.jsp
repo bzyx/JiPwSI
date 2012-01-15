@@ -12,6 +12,34 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Tankowanie auta</h1>
+        <form method="post" action="/JiPwSI/addRefuel">
+            <div>
+                <p>Zanotuj tankowanie i wciśnij zapisz.</p>
+            </div>						
+            <ul >		
+                <li>
+                    <label for="amountOfFuel">Ilość paliwa: </label>
+                    <div>
+                        <input id="amoutOfFuel" name="amoutOfFuel"  type="text" maxlength="255" title="Liczba z przecinkiem." value=""/> 
+                    </div> 
+                </li>
+                <li>
+                    <label  for="price">Kwota zakupu: </label>
+                    <div>
+                        <input id="price" name="price" type="text" maxlength="255" title="Liczba z przecinkiem." value=""/> 
+                    </div> 
+                </li>
+                <li>
+                    <label  for="distance">Stan licznika: </label>
+                    <div>
+                        <input id="distance" name="distance" type="text" maxlength="255" title ="Liczba bez przecinka" value=""/> 
+                    </div> 
+                </li>
+            </ul>
+            <input id="saveForm" type="submit" name="submit" value="Zapisz" />
+        </form>	
+        <br>
+        <a href="../index.jsp">Powrót</a>
     </body>
 </html>

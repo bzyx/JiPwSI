@@ -104,6 +104,21 @@ public class CarController {
 		}
 		return returnList;
 	}
+        
+        	/**
+	 * Presents to view a list of all Cars without a Driver set.
+	 * 
+	 * @return returns a list of Car's.
+	 */
+	public List<Car> getCarWithNoDiverCarList() {
+		List<Car> returnList = new ArrayList<Car>();
+		for (Car car : carList.getListOfCars()) {
+			if (car.getAcctualDriverId() == null) {
+				returnList.add(car);
+			}
+		}
+		return returnList;
+	}
 
 	/**
 	 * Tries a find a Car with the provided Registration Number or Car name.
