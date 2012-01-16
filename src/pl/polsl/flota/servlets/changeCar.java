@@ -6,6 +6,9 @@ package pl.polsl.flota.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -98,6 +101,26 @@ public class changeCar extends HttpServlet {
         responseText += "</p>";
         carController.save(session.getAttribute("carsFilePath").toString());
 
+        PrintWriter out = response.getWriter();
+         Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(getServletContext().getResource("/jdbc/myDatasource").toString());
+
+        
+      Statement statement = connection.createStatement();
+      statement.setQueryTimeout(30);  // set timeout to 30 sec.
+      ResultSet rs = statement.executeQuery("select * from mytab");
+        responseText+= rs.next();
+               } catch (SQLException ex) {
+            Logger.getLogger(changeCar.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
+        
+        
+        
+        
+        
+        
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/response.jsp");
         request.setAttribute("title", "Zmiana pojazdu - wynik");
         request.setAttribute("inner", responseText);

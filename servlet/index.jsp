@@ -53,6 +53,7 @@
     pageContext.setAttribute("isAdmin", isAdmin, PageContext.PAGE_SCOPE);
     pageContext.setAttribute("userId", userId, PageContext.PAGE_SCOPE);
     pageContext.setAttribute("userName", userFullName, PageContext.PAGE_SCOPE);
+    
 %>
 <!DOCTYPE html>
 <html>
