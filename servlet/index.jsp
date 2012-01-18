@@ -67,11 +67,6 @@ Class.forName("org.sqlite.JDBC");
     pageContext.setAttribute("isAdmin", isAdmin, PageContext.PAGE_SCOPE);
     pageContext.setAttribute("userId", userId, PageContext.PAGE_SCOPE);
     pageContext.setAttribute("userName", userFullName, PageContext.PAGE_SCOPE);
-    
-    for (User us : userController.getRawList()){
-       String s = us.getUserId() +" "+ us.getFullName() +" "+ us.getIsAdminString() +" "+ us.getUserName() +" "+ us.getPassword() +" "+ us.getLastUserId();
-       System.out.println(s);
-      }
 %>
 <!DOCTYPE html>
 <html>

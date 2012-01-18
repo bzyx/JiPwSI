@@ -19,7 +19,7 @@
     </head>
     <body>
         <%
-            CarController carController = new CarController(session.getAttribute("carsFilePath").toString());
+            CarController carController = new CarController((String)session.getAttribute("DB_URL"));
             List<Car> names;
             pageContext.setAttribute("names", carController.getRawList(), PageContext.PAGE_SCOPE);
         %>
