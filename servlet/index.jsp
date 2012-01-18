@@ -1,4 +1,7 @@
 
+<%@page import="javax.naming.Context"%>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="javax.naming.InitialContext"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
@@ -16,16 +19,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 Class.forName("org.sqlite.JDBC");
-    Connection connection = null;
+    //Connection connection = null;
 
-    connection = DriverManager.getConnection("jdbc:sqlite:D:/JiPwSI/fmFull.db");
-      
+    //connection = DriverManager.getConnection("jdbc:sqlite:H:/JiPwSI/fmFull.db");
+    session.setAttribute("DB_URL", "jdbc:sqlite:H:/JiPwSI/fmFull.db");
     session.setAttribute("carsFilePath", session.getServletContext().getRealPath("/") + "cars.json");
-    session.setAttribute("usersFilePath", session.getServletContext().getRealPath("/") + "users.json");
-    //UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
-    UserController userController = new UserController(connection);
+    //session.setAttribute("usersFilePath", session.getServletContext().getRealPath("/") + "users.json");
+    UserController userController = new UserController((String)session.getAttribute("DB_URL"));
     
-    session.setAttribute("dbConn", connection);
 
     Integer userId = -1;
     Boolean isAdmin = false;

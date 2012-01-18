@@ -85,7 +85,7 @@ public class changeUserPassword extends HttpServlet {
             throws ServletException, IOException {
         Boolean wasError = false;
         HttpSession session = request.getSession();
-        UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
+        UserController userController = new UserController((String)session.getAttribute("DB_URL"));
 
         User user = null;
         try {
@@ -108,7 +108,7 @@ public class changeUserPassword extends HttpServlet {
             responseText += "Wprowadzono pomyślnie zmiany.";
         }
         responseText += "</p>";
-        userController.save(session.getAttribute("usersFilePath").toString());
+        userController.save((String)session.getAttribute("DB_URL"));
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/response.jsp");
         request.setAttribute("title", "Zmiana hasła");

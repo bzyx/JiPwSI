@@ -16,7 +16,7 @@
     <body>
         <h1>Wylogowano</h1>
         <% Integer userId = (Integer)session.getAttribute("userId");
-           UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
+           UserController userController = new UserController((String)session.getAttribute("DB_URL"));
            
            User user = userController.getUserList().getUserById(userId);
            pageContext.setAttribute("userName", user.getFullName() , PageContext.PAGE_SCOPE);

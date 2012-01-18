@@ -90,8 +90,7 @@ public class addDriver extends HttpServlet {
                 + " </em></li></ul> <br> <strong> Wynik: </strong> ";
         Boolean wasError = false;
         HttpSession session = request.getSession();
-        //UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
-        UserController userController = new UserController((Connection)session.getAttribute("dbCon"));
+        UserController userController = new UserController((String)session.getAttribute("DB_URL"));
         try {
             userController.addUser(request.getParameter("login"), request.getParameter("password"), request.getParameter("fullName"));
         } catch (ElementAlredyExists ex) {
@@ -105,7 +104,7 @@ public class addDriver extends HttpServlet {
             responseText += "Dodano pomyślnie.";
         }
         responseText += "</p>";
-        userController.save((Connection)session.getAttribute("dbCon"));
+        userController.save((String)session.getAttribute("DB_URL"));
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/response.jsp");
         request.setAttribute("title", "Dodawanie użytkownika - wynik");

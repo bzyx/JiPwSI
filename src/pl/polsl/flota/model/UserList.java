@@ -123,28 +123,21 @@ public class UserList {
      * @throws IOException
      * @since 1.0.2 25/10/2011
      */
-    public void load(String fileName) throws IOException {
-        try {
-            FileReader fileReader = new FileReader(fileName);
-            this.listOfUsers = new JSONDeserializer<List<User>>().deserialize(fileReader);
-            fileReader.close();
-        } catch (JSONException e) {
-            System.out.println("Błąd wczytywania pliku.");
-            throw new IOException();
-            //e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            System.out.println("Błędna nazwa pliku lub plik nie istnieje.");
-            throw new IOException();
-            //e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("Bład we/wy.");
-            throw new IOException();
-            //e.printStackTrace();
-        }
-        // We must provide a value to lastUserId after loading a file.
-        User.setLastUserId(this.listOfUsers.get(this.listOfUsers.size() - 1).getUserId());
+    /*
+     * public void load(String fileName) throws IOException { try { FileReader
+     * fileReader = new FileReader(fileName); this.listOfUsers = new
+     * JSONDeserializer<List<User>>().deserialize(fileReader);
+     * fileReader.close(); } catch (JSONException e) { System.out.println("Błąd
+     * wczytywania pliku."); throw new IOException(); //e.printStackTrace(); }
+     * catch (FileNotFoundException e) { System.out.println("Błędna nazwa pliku
+     * lub plik nie istnieje."); throw new IOException(); //e.printStackTrace();
+     * } catch (IOException e) { System.out.println("Bład we/wy."); throw new
+     * IOException(); //e.printStackTrace(); } // We must provide a value to
+     * lastUserId after loading a file.
+     * User.setLastUserId(this.listOfUsers.get(this.listOfUsers.size() -
+     * 1).getUserId());
     }
-
+     */
     /**
      * Gets the list of Objects and save it encoded in JSON in file.
      *
@@ -153,7 +146,7 @@ public class UserList {
      */
     // TODO: Wyłączyć println, zamiast tego throws ErrorLoadingFile - z własnych
     // wyjątków
-    public void save(String fileName) {
+    /*public void save(String fileName) {
         try {
             JSONSerializer serializer = new JSONSerializer();
             FileWriter fileWriter = new FileWriter(fileName);
@@ -163,7 +156,7 @@ public class UserList {
             e.printStackTrace();
             System.out.println("Error przy zapisie");
         }
-    }
+    }*/
 
     /**
      * @param listOfUsers the listOfUsers to set
@@ -199,44 +192,97 @@ public class UserList {
         try {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Users");
-            
-            while ( rs.next() ){
+
+            while (rs.next()) {
                 User us = new User();
                 us.setUserId(rs.getInt("id"));
                 us.setFullName(rs.getString("fullName"));
                 us.setUserName(rs.getString("userName"));
                 us.setPassword(rs.getString("password"));
-                us.setIsAdmin(rs.getInt("isAdmin")>0);
-                
+                us.setIsAdmin(rs.getInt("isAdmin") > 0);
+
                 this.listOfUsers.add(us);
                 User.setLastUserId(us.getUserId());
-            } 
+            }
         } catch (SQLException ex) {
             Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
-        }   
+        }
     }
-    
-    public void saveUsersToDB(Connection connection){
+
+    public void save(String fileName) {
+        Connection connection = null;
         try {
-             // statement = connection.createStatement();
-            //ResultSet rs = statement.("DELETE * FROM Users");
+            connection = DriverManager.getConnection(fileName);
+            Statement statement = connection.createStatement();
+            statement.execute("DELETE FROM Users");
             //Connection my = connection.ge
-            if (connection == null){
-                System.out.println("no conn");
-            }
-            String  s = new String("INSERT INTO Users (id, fullName, userName, password, isAdmin) VALUES(?,?,?,?,?) ");
+            
+            String s = new String("INSERT INTO Users (id, fullName, userName, password, isAdmin) VALUES(?,?,?,?,?) ");
             PreparedStatement preStatemnt = connection.prepareStatement(s);
-            for (User us: this.listOfUsers ){
-                    preStatemnt.setInt(1, us.getUserId());
-                    preStatemnt.setString(2, us.getFullName());
-                    preStatemnt.setString(3, us.getUserName());
-                    preStatemnt.setString(4, us.getPassword());
-                    preStatemnt.setInt(5, us.getIsAdmin()?1:0);
-                    
-                    preStatemnt.execute();
+            for (User us : this.listOfUsers) {
+                //statement = connection.createStatement();
+                //String s = new String("INSERT INTO Users (id, fullName, userName, password, isAdmin) VALUES(");
+                
+                
+                preStatemnt.setInt(1, us.getUserId());
+                preStatemnt.setString(2, us.getFullName());
+                preStatemnt.setString(3, us.getUserName());
+                preStatemnt.setString(4, us.getPassword());
+                preStatemnt.setInt(5, us.getIsAdmin() ? 1 : 0);
+               /* s+="'"+us.getUserId()+"'";
+                s+=",";
+                s+="'"+us.getFullName()+"'";
+                s+=",";
+                s+="'"+us.getUserName()+"'";
+                s+=",";
+                s+="'"+us.getPassword()+"'";
+                s+=",";
+                s +=us.getIsAdmin()?1:0;
+                s+=")";
+                System.out.println(s);
+                
+                Statement statement1 = connection.createStatement();
+                statement.execute(s);*/
+                preStatemnt.execute();
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void load(String filename) {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(filename);
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM Users");
+
+            while (rs.next()) {
+                User us = new User();
+                us.setUserId(rs.getInt("id"));
+                us.setFullName(rs.getString("fullName"));
+                us.setUserName(rs.getString("userName"));
+                us.setPassword(rs.getString("password"));
+                us.setIsAdmin(rs.getInt("isAdmin") > 0);
+
+                this.listOfUsers.add(us);
+                User.setLastUserId(us.getUserId());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

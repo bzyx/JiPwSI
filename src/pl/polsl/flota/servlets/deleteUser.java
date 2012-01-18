@@ -67,7 +67,7 @@ public class deleteUser extends HttpServlet {
             throws ServletException, IOException {
         Boolean wasError = false;
         HttpSession session = request.getSession();
-        UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
+        UserController userController = new UserController((String)session.getAttribute("DB_URL"));
 
         String responseText = " <p><ul> <li>Id usuwanego użytkownika: <em> "
                 + request.getParameter("id")
@@ -82,7 +82,7 @@ public class deleteUser extends HttpServlet {
             responseText += "Pomyślnie usunięto.";
         }
         responseText += "</p>";
-        userController.save(session.getAttribute("usersFilePath").toString());
+        userController.save((String)session.getAttribute("DB_URL"));
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/response.jsp");
         request.setAttribute("title", "Zmiana hasła");

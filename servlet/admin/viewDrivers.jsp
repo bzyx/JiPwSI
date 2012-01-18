@@ -7,7 +7,8 @@
 
 <%@page import="pl.polsl.flota.controller.UserController"%>
 <%
-    UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
+    UserController userController = new UserController((String)session.getAttribute("DB_URL"));    
+
     pageContext.setAttribute("users", userController.getRawList(), PageContext.PAGE_SCOPE);
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
