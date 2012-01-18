@@ -6,6 +6,7 @@ package pl.polsl.flota.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -89,7 +90,8 @@ public class addDriver extends HttpServlet {
                 + " </em></li></ul> <br> <strong> Wynik: </strong> ";
         Boolean wasError = false;
         HttpSession session = request.getSession();
-        UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
+        //UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
+        UserController userController = new UserController((Connection)session.getAttribute("dbCon"));
         try {
             userController.addUser(request.getParameter("login"), request.getParameter("password"), request.getParameter("fullName"));
         } catch (ElementAlredyExists ex) {
@@ -103,7 +105,7 @@ public class addDriver extends HttpServlet {
             responseText += "Dodano pomyślnie.";
         }
         responseText += "</p>";
-        userController.save(session.getAttribute("usersFilePath").toString());
+        userController.save((Connection)session.getAttribute("dbCon"));
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/response.jsp");
         request.setAttribute("title", "Dodawanie użytkownika - wynik");

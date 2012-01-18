@@ -4,6 +4,7 @@
 package pl.polsl.flota.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import pl.polsl.flota.exceptions.ElementAlredyExists;
@@ -40,6 +41,18 @@ public class UserController {
 		}
 
 	}
+        
+       public UserController(Connection connection) throws IOException {
+		super();
+		if (userList == null){
+			userList = new UserList();
+		}
+		
+		if (userList.getListOfUsers().isEmpty()) {
+			userList.loadUsersFromDB(connection);
+		}
+
+	}
 
 	/**
 	 * Tries to add User, if that user already exist throws ElementAlredyExists
@@ -65,6 +78,11 @@ public class UserController {
 	 */
 	public void save(String fileNameUserList) {
 		userList.save(fileNameUserList);
+
+	}
+        
+        public void save(Connection connection) {
+		userList.saveUsersToDB(connection);
 
 	}
 

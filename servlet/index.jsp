@@ -1,3 +1,8 @@
+
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.DriverManager"%>
 <%@page import="sun.security.x509.OIDMap"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
@@ -10,9 +15,17 @@
 <%@page import="pl.polsl.flota.controller.UserController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+Class.forName("org.sqlite.JDBC");
+    Connection connection = null;
+
+    connection = DriverManager.getConnection("jdbc:sqlite:D:/JiPwSI/fmFull.db");
+      
     session.setAttribute("carsFilePath", session.getServletContext().getRealPath("/") + "cars.json");
     session.setAttribute("usersFilePath", session.getServletContext().getRealPath("/") + "users.json");
-    UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
+    //UserController userController = new UserController(session.getAttribute("usersFilePath").toString());
+    UserController userController = new UserController(connection);
+    
+    session.setAttribute("dbConn", connection);
 
     Integer userId = -1;
     Boolean isAdmin = false;
@@ -54,6 +67,10 @@
     pageContext.setAttribute("userId", userId, PageContext.PAGE_SCOPE);
     pageContext.setAttribute("userName", userFullName, PageContext.PAGE_SCOPE);
     
+    for (User us : userController.getRawList()){
+       String s = us.getUserId() +" "+ us.getFullName() +" "+ us.getIsAdminString() +" "+ us.getUserName() +" "+ us.getPassword() +" "+ us.getLastUserId();
+       System.out.println(s);
+      }
 %>
 <!DOCTYPE html>
 <html>

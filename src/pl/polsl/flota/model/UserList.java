@@ -10,8 +10,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import pl.polsl.flota.exceptions.ElementAlredyExists;
 import pl.polsl.flota.exceptions.ElementNotFound;
 
@@ -189,6 +192,51 @@ public class UserList {
         if (isError) {
             throw new ElementNotFound("User: updateUserById " + userId
                     + " - element not found");
+        }
+    }
+
+    public void loadUsersFromDB(Connection connection) {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM Users");
+            
+            while ( rs.next() ){
+                User us = new User();
+                us.setUserId(rs.getInt("id"));
+                us.setFullName(rs.getString("fullName"));
+                us.setUserName(rs.getString("userName"));
+                us.setPassword(rs.getString("password"));
+                us.setIsAdmin(rs.getInt("isAdmin")>0);
+                
+                this.listOfUsers.add(us);
+                User.setLastUserId(us.getUserId());
+            } 
+        } catch (SQLException ex) {
+            Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
+    
+    public void saveUsersToDB(Connection connection){
+        try {
+             // statement = connection.createStatement();
+            //ResultSet rs = statement.("DELETE * FROM Users");
+            //Connection my = connection.ge
+            if (connection == null){
+                System.out.println("no conn");
+            }
+            String  s = new String("INSERT INTO Users (id, fullName, userName, password, isAdmin) VALUES(?,?,?,?,?) ");
+            PreparedStatement preStatemnt = connection.prepareStatement(s);
+            for (User us: this.listOfUsers ){
+                    preStatemnt.setInt(1, us.getUserId());
+                    preStatemnt.setString(2, us.getFullName());
+                    preStatemnt.setString(3, us.getUserName());
+                    preStatemnt.setString(4, us.getPassword());
+                    preStatemnt.setInt(5, us.getIsAdmin()?1:0);
+                    
+                    preStatemnt.execute();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
