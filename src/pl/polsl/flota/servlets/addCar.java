@@ -83,7 +83,7 @@ public class addCar extends HttpServlet {
                 + " </em></li></ul> <br> <strong> Wynik: </strong> ";
         Boolean wasError = false;
         HttpSession session = request.getSession();
-        CarController carController = new CarController(session.getAttribute("carsFilePath").toString());
+        CarController carController = new CarController(session.getAttribute("DB_URL").toString());
         try {
             carController.addCar(request.getParameter("reg_number"),
                     request.getParameter("carName"),
@@ -100,7 +100,7 @@ public class addCar extends HttpServlet {
             responseText += "Dodano pomyślnie.";
         }
         responseText += "</p>";
-        carController.save(session.getAttribute("carsFilePath").toString());
+        carController.save(session.getAttribute("DB_URL").toString());
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/response.jsp");
         request.setAttribute("title", "Dodawanie samochodu - wynik");

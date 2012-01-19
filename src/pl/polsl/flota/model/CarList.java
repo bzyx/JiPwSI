@@ -3,13 +3,6 @@
  */
 package pl.polsl.flota.model;
 
-import flexjson.JSONDeserializer;
-import flexjson.JSONException;
-import flexjson.JSONSerializer;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -84,47 +77,31 @@ public class CarList {
     }
 
     /**
-     * Reads the file encoded with JSON. All the read Objects are added to
-     * listOfCars member.
+     * Read the Car and Refuel records and creates java objects.
      *
-     * @param fileName name of file to read
-     * @throws IOException
+     * @param fileName name of databae file
      * @since 1.0.1 24/10/2011
      */
-    public void load(String fileName) throws IOException {
+    public void load(String fileName) {
         Connection connection = null;
         try {
-            /*
-             * try { FileReader fileReader = new FileReader(fileName);
-             * this.listOfCars = new JSONDeserializer<List<Car>>()
-             * .deserialize(fileReader); fileReader.close(); } catch
-             * (JSONException e) { System.out.println("Błąd wczytywania
-             * pliku."); throw new IOException(); // e.printStackTrace(); }
-             * catch (FileNotFoundException e) { System.out.println("Błędna
-             * nazwa pliku lub plik nie istnieje."); throw new IOException(); //
-             * e.printStackTrace(); } catch (IOException e) {
-             * System.out.println("Bład we/wy."); throw new IOException(); //
-             * e.printStackTrace(); }
-             */
-            
-            
-            
             connection = DriverManager.getConnection(fileName);
-            
+
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Cars");
-            
+
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM REFUELS WHERE carId = ?");
-            
+
             while (rs.next()) {
                 Car carFromDb = new Car();
-                
+
                 carFromDb.setRegNumber(rs.getString("regNumber"));
                 carFromDb.setName(rs.getString("name"));
                 carFromDb.setAvgConsumpion(rs.getFloat("avgConsumption"));
                 carFromDb.setAcctualDriverId(rs.getInt("actualDriverId"));
+                System.out.println(rs.getInt("actualDriverId"));
                 carFromDb.setDistance(rs.getInt("distance"));
-                
+
                 preparedStatement.setString(1, carFromDb.getRegNumber());
                 ResultSet carRefuelrs = preparedStatement.executeQuery();
                 while (carRefuelrs.next()) {
@@ -133,12 +110,12 @@ public class CarList {
                     refuel.setDate(carRefuelrs.getDate("date"));
                     refuel.setDistance(carRefuelrs.getInt("distance"));
                     refuel.setValue(carRefuelrs.getFloat("value"));
-                    
+
                     carFromDb.addRefuel(refuel);
                 }
                 this.listOfCars.add(carFromDb);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(CarList.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -148,27 +125,57 @@ public class CarList {
                 Logger.getLogger(CarList.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }
 
     /**
-     * Gets the list of Objects and save it encoded in JSON in file.
+     * Takes the all Car objects and saves them to database.
      *
-     * @param fileName - name of file to save
+     * @param fileName - name of database file
      * @since 1.0.1 24/10/2011
      */
-    // TODO: Wyłączyć println, zamiast tego throws ErrorLoadingFile - z własnych
-    // wyjątków
     public void save(String fileName) {
+        Connection connection = null;
         try {
-            JSONSerializer serializer = new JSONSerializer();
-            FileWriter fileWriter = new FileWriter(fileName);
-            serializer.include("historyOfRefuel").serialize(this.listOfCars,
-                    fileWriter);
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error przy zapisie");
+            connection = DriverManager.getConnection(fileName);
+
+            Statement statement = connection.createStatement();
+            statement.execute("DELETE FROM Cars");
+            statement.execute("DELETE FROM Refuels");
+
+            PreparedStatement addCarStmt = connection.prepareStatement("INSERT INTO Cars (regNumber, name, avgConsumption, actualDriverId, distance) VALUES(?,?,?,?,?) ");
+            PreparedStatement addRefuelStmt = connection.prepareStatement("INSERT INTO Refuels (carId, amount, date, distance, value) VALUES(?,?,?,?,?) ");
+
+            for (Car car : this.listOfCars) {
+                addCarStmt.setString(1, car.getRegNumber());
+                addCarStmt.setString(2, car.getName());
+                addCarStmt.setFloat(3, car.getAvgConsumpion());
+                //if car has no driver there is a null value so we send -1 to databes as an ivalid id
+                addCarStmt.setInt(4, ((car.getAcctualDriverId() == null) ? -1 : car.getAcctualDriverId()));
+                addCarStmt.setInt(5, car.getDistance());
+
+                addCarStmt.execute();
+                for (Refuel refuel : car.getHistoryOfRefuel()) {
+                    addRefuelStmt.setString(1, car.getRegNumber());
+                    addRefuelStmt.setFloat(2, refuel.getAmount());
+                    //Here we have 2 diffrent DataTime types we must convert before save
+                    java.sql.Date sqlDate = new java.sql.Date(refuel.getDate().getTime());
+                    addRefuelStmt.setDate(3, sqlDate);
+                    addRefuelStmt.setInt(4, refuel.getDistance());
+                    addRefuelStmt.setFloat(5, refuel.getValue());
+
+                    addRefuelStmt.execute();
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CarList.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

@@ -64,7 +64,7 @@ public class deleteCar extends HttpServlet {
             throws ServletException, IOException {
         Boolean wasError = false;
         HttpSession session = request.getSession();
-        CarController carController = new CarController(session.getAttribute("carsFilePath").toString());
+        CarController carController = new CarController(session.getAttribute("DB_URL").toString());
         String responseText = " <p><ul> <li>Numer rejestracyjny: <em> "
                 + request.getParameter("regNumber")
                 + " </em></li></ul> <br> <strong> Wynik: </strong>";
@@ -74,7 +74,7 @@ public class deleteCar extends HttpServlet {
             responseText += "Wystąpił błąd podczas usuwania.";
             wasError = true;
         }
-        carController.save(session.getAttribute("carsFilePath").toString());
+        carController.save(session.getAttribute("DB_URL").toString());
         if (!wasError) {
             responseText += "Samochód został usunięty.";
         }

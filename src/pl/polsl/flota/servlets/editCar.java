@@ -81,7 +81,7 @@ public class editCar extends HttpServlet {
                 + " </em></ul> <br> <strong> Wynik: </strong> ";
         Boolean wasError = false;
         HttpSession session = request.getSession();
-        CarController carController = new CarController(session.getAttribute("carsFilePath").toString());
+        CarController carController = new CarController(session.getAttribute("DB_URL").toString());
         try {
             carController.editCar(request.getParameter("reg_number"),
                     request.getParameter("carName"),
@@ -98,7 +98,7 @@ public class editCar extends HttpServlet {
             responseText += "Wprowadzono pomyślnie zmiany.";
         }
         responseText += "</p>";
-        carController.save(session.getAttribute("carsFilePath").toString());
+        carController.save(session.getAttribute("DB_URL").toString());
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/response.jsp");
         request.setAttribute("title", "Edycja samochodu - wynik");

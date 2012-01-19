@@ -40,6 +40,7 @@ public class Car {
 	public Car() {
 		super();
 		this.historyOfRefuel = new ArrayList<Refuel>();
+                this.acctualDriverId = -1;
 	}
 
 	
@@ -61,6 +62,7 @@ public class Car {
 		
 		/** The avg consumpion. */
 		private Float avgConsumpion = null;
+                
 		
 		/**
 		 * Instantiates a new car builder.
@@ -116,6 +118,7 @@ public class Car {
 		this.distance = carBuilder.distance;
 		this.avgConsumpion = carBuilder.avgConsumpion;
 		this.historyOfRefuel = new ArrayList<Refuel>();
+                this.acctualDriverId = -1;
 	}
 	
 

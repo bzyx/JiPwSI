@@ -18,13 +18,12 @@
 <%@page import="pl.polsl.flota.controller.UserController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-Class.forName("org.sqlite.JDBC");
-    //Connection connection = null;
+    Class.forName("org.sqlite.JDBC");
 
-    //connection = DriverManager.getConnection("jdbc:sqlite:H:/JiPwSI/fmFull.db");
     session.setAttribute("DB_URL", "jdbc:sqlite:H:/JiPwSI/fmFull.db");
-    session.setAttribute("carsFilePath", session.getServletContext().getRealPath("/") + "cars.json");
-    //session.setAttribute("usersFilePath", session.getServletContext().getRealPath("/") + "users.json");
+
+    // session.setAttribute("carsFilePath", session.getServletContext().getRealPath("/") + "cars.json");
+    // session.setAttribute("usersFilePath", session.getServletContext().getRealPath("/") + "users.json");
     UserController userController = new UserController((String)session.getAttribute("DB_URL"));
     
 

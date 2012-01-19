@@ -5,7 +5,7 @@
 --%>
 <%@page import="pl.polsl.flota.model.Car"%>
 <%@page import="pl.polsl.flota.controller.CarController"%>
-<% CarController carController = new CarController(session.getAttribute("carsFilePath").toString());
+<% CarController carController = new CarController(session.getAttribute("DB_URL").toString());
     String carRegistartionNumer = request.getParameter("regNumber");
 
     String regNumber = carRegistartionNumer;

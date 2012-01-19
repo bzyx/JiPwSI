@@ -7,7 +7,7 @@
 
 <%@page import="pl.polsl.flota.controller.CarController"%>
 <%@page import="pl.polsl.flota.model.Car"%>
-<%  CarController carController = new CarController(session.getAttribute("carsFilePath").toString());
+<%  CarController carController = new CarController(session.getAttribute("DB_URL").toString());
     pageContext.setAttribute("carsToUse", carController.getCarWithNoDiverCarList(), PageContext.PAGE_SCOPE);
 %>
 

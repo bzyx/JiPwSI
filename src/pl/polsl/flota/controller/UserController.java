@@ -4,7 +4,6 @@
 package pl.polsl.flota.controller;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import pl.polsl.flota.exceptions.ElementAlredyExists;
